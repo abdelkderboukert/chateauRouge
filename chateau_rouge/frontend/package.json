@@ -10,8 +10,25 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@tanstack/react-query": "^5.34.1",
+    "axios": "^1.6.8",
+    "bootstrap": "^5.3.3",
+    "dayjs": "^1.11.11",
+    "electron-forge": "^2.0.0",
+    "jsonwebtoken": "^9.0.2",
+    "jwt-client": "^0.2.1",
+    "jwt-decode": "^4.0.0",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-bootstrap": "^2.10.2",
+    "react-dom": "^18.2.0",
+    "react-query": "^3.39.3",
+    "react-router-dom": "^6.23.0",
+    "react-scripts": "4.0.3",
+    "typescript": "4.9.5",
+    "safe-buffer": "^5.2.1",
+    "sweetalert2": "^11.6.13",
+    "swipe": "^1.7.7",
+    "tsconfig": "^7.0.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.66",
