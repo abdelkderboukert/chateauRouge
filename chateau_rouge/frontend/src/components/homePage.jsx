@@ -8,6 +8,7 @@ import Home from "./home";
 import PrivateRoute from "../utils/PrivateRoute";
 import { AuthProvider } from "../context/AuthContext";
 import Charts from "./charts";
+import Test2 from "./test2";
 
 export default function HomePage() {
   return (
@@ -26,6 +27,7 @@ export default function HomePage() {
           />
           <Route path="/cherts" element={<Charts />} />
           <Route path="/" element={<Test />} />
+          <Route path="/test2" element={<Test2 />} />
         </Routes>
       </AuthProvider>
     </Router>

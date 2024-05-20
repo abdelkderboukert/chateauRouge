@@ -1,6 +1,11 @@
 from django.db import models
 from django.db.models.signals import post_save
 from django.contrib.auth.models import User
+from datetime import datetime
+
+d = datetime.now()
+formatted_date = d.strftime("%Y-%m-%dT%H:%M:%S.000Z")
+print(formatted_date)
 
 
 class Profile(models.Model):
@@ -20,3 +25,69 @@ def save_user_profile(sender, instance, **kwargs):
 
 post_save.connect(create_user_profile, sender=User)
 post_save.connect(save_user_profile, sender=User)
+
+class Camany(models.Model):
+    name = models.CharField(max_length=50)
+    place = models.CharField(max_length=150)
+    re_com =models.CharField(max_length=30)
+    balites = models.ManyToManyField('Balite')
+
+
+class Client(models.Model):
+    name = models.CharField(max_length=30)
+    prename = models.CharField(max_length=30)
+    campany = models.ForeignKey(Camany, on_delete=models.CASCADE)
+    vers = models.ForeignKey(vers, on_delete=models.SET_NULL, null=True, blank=True)
+    datte = models.ForeignKey(datte, on_delete=models.SET_NULL, null=True, blank=True)
+
+
+class Buying(models.Model):
+    client = models.ForeignKey(Client, on_delete=models.CASCADE)
+    balites = models.ManyToManyField('Balite')
+    ptotal = models.IntegerField(default=0)
+    time = models.CharField(max_length=50)
+
+    def __str__(self):
+        return f"Buying for {self.client.name}"
+
+    @property
+    def prix_t(self):
+        return sum(balite.selling_price for balite in self.balites.all())
+
+    def save(self, *args, **kwargs):
+        self.ptotal = self.prix_t
+        self.time = formatted_date
+        super().save(*args, **kwargs)
+    
+    
+class balite(models.Model):
+    name = models.CharField(max_length=100)
+    color = models.CharField(max_length=30)
+    prix = models.IntegerField(default=0)
+    mitrage = models.IntegerField(default=0)
+    prix_vendre = models.IntegerField(default=0)
+    type = models.CharField(max_length=50)
+    vent = models.IntegerField(
+        max_length=1,
+        choices=[(0, 'acha'), (1, 'vent')]
+    )
+    client = models.ForeignKey(Client, on_delete=models.CASCADE)
+    campany = models.ForeignKey(Camany, on_delete=models.CASCADE)
+
+class datte(models.Model):
+    prix = models.IntegerField(default=0)
+    time = models.CharField(max_length=50)
+
+    def save(self, *args, **kwargs):
+        self.time = formatted_date
+        super().save(*args, **kwargs)
+        client = models.ForeignKey(Client, on_delete=models.SET_NULL, null=True, blank=True, related_name='datte_set')
+    
+class vers(models.Model):
+    prix = models.IntegerField(default=0)
+    time = models.CharField(max_length=50)
+    client = models.ForeignKey(Client, on_delete=models.SET_NULL, null=True, blank=True, related_name='vers_set')
+
+    def save(self, *args, **kwargs):
+        self.time = formatted_date
+        super().save(*args, **kwargs)

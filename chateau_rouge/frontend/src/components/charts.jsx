@@ -1,50 +1,61 @@
 import React, { useState } from "react";
 import Chart from "react-apexcharts";
 
-const Charts = () => {
+const Charts = (props) => {
   const [state, setstate] = useState({
+    series: [
+      {
+        name: "series1",
+        data: props.data1,
+      },
+      {
+        name: "series2",
+        data: props.data2,
+      },
+    ],
     options: {
       chart: {
-        id: "basic-bar",
+        type: "area",
       },
-      xaxis: {
-        categories: [
-          1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999, 2000, 2002,
-          2003, 2004, 1995, 2006, 2007, 2008, 2009,
-        ],
+      dataLabels: {
+        enabled: false,
       },
       stroke: {
         curve: "smooth",
       },
-    },
-    series: [
-      {
-        type: "line",
-        name: "series-1",
-        data: [30, 40, 45, 50, 49, 60, 70, 91, 30, 40, 45, 50, 49, 60, 70, 91],
+      xaxis: {
+        type: "datetime",
+        categories: [
+          "2018-09-19T00:00:00.000Z",
+          "2018-09-19T01:30:00.000Z",
+          "2018-09-19T02:30:00.000Z",
+          "2018-09-19T03:30:00.000Z",
+          "2018-09-19T04:30:00.000Z",
+          "2018-09-19T05:30:00.000Z",
+          "2018-09-20T06:30:00.000Z",
+        ],
       },
-      {
-        type: "line",
-        name: "series-1",
-        data: [30, 40, 45, 50, 49, 60, 78, 91, 30, 40, 55, 50, 47, 60, 70, 91],
+      tooltip: {
+        x: {
+          format: "dd/MM/yy HH:mm",
+        },
       },
-    ],
-    title: {
-      text: "Ajax Example",
-    },
-    noData: {
-      text: "Loading...",
     },
   });
+  const id = props.id;
   return (
-    <div>
-      <Chart
-      options={state.options}
-      series={state.series}
-      width="500"
-        // type=""
-      />
-    </div>
+    <>
+      <div id={`chart-${id}`}>
+        <Chart
+          options={state.options}
+          series={state.series}
+          type="area"
+          height={350}
+          width={500}
+        />
+      </div>
+      <div id={`html-dist-${id}`}></div>
+    </>
   );
 };
 

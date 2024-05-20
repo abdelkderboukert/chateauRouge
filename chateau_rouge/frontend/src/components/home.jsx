@@ -3,6 +3,7 @@ import AuthContext from "../context/AuthContext";
 import { useContext } from "react";
 import useAxios from "../utils/useAxios";
 import { useQuery } from "@tanstack/react-query";
+import Charts from "./charts";
 
 function Home() {
   const axiosInstance = useAxios();
@@ -197,6 +198,12 @@ function Home() {
           </div>
         </div>
         {/* partial */}
+        <Charts
+          id={2}
+          data1={[11, 32, "45", 32, 34, 52, 41]}
+          data2={[]}
+          categories={[]}
+        />
       </section>
       {/* Footer*/}
       <footer className="footer bg-black small text-center text-white-50">
@@ -204,8 +211,12 @@ function Home() {
           Copyright © Your Website 2023
         </div>
       </footer>
-      {/* Bootstrap core JS*/}
-      {/* Core theme JS*/}
+      <Charts
+        id={1}
+        data1={[11, 32, "45", 32, 34, 52, 41]}
+        data2={[]}
+        categories={[]}
+      />
     </>
   );
 }
