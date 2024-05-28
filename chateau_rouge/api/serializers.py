@@ -57,3 +57,40 @@ class RegisterSerializer(serializers.ModelSerializer):
         user.save()
 
         return user
+
+class CamanySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Camany
+        fields = ['name', 'place', 're_com']
+
+class DatteSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = datte
+        fields = ['prix', 'time', 'client']
+
+class VersSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = vers
+        fields = ['prix', 'time', 'client']
+
+class ClientSerializer(serializers.ModelSerializer):
+    company = CamanySerializer()
+    vers = VersSerializer()
+    datte = DatteSerializer()
+    class Meta:
+        model = Client
+        fields = ['name', 'prename', 'company', 'vers', 'datte']
+
+
+class BuyingSerializer(serializers.ModelSerializer):
+    balites = serializers.StringRelatedField(many=True)
+
+    class Meta:
+        model = Buying
+        fields = ['client', 'balites', 'ptotal', 'time']
+
+class BaliteSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = balite
+        fields = ['name', 'color', 'prix', 'mitrage', 'prix_vendre', 'type', 'vent', 'client', 'campany']
+

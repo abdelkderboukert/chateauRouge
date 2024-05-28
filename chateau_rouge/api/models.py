@@ -37,8 +37,8 @@ class Client(models.Model):
     name = models.CharField(max_length=30)
     prename = models.CharField(max_length=30)
     campany = models.ForeignKey(Camany, on_delete=models.CASCADE)
-    vers = models.ForeignKey(vers, on_delete=models.SET_NULL, null=True, blank=True)
-    datte = models.ForeignKey(datte, on_delete=models.SET_NULL, null=True, blank=True)
+    vers = models.ForeignKey('vers', on_delete=models.SET_NULL, null=True, blank=True, related_name='client_vers')
+    datte = models.ForeignKey('datte', on_delete=models.SET_NULL, null=True, blank=True, related_name='client_datte')
 
 
 class Buying(models.Model):
@@ -68,7 +68,6 @@ class balite(models.Model):
     prix_vendre = models.IntegerField(default=0)
     type = models.CharField(max_length=50)
     vent = models.IntegerField(
-        max_length=1,
         choices=[(0, 'acha'), (1, 'vent')]
     )
     client = models.ForeignKey(Client, on_delete=models.CASCADE)
@@ -77,11 +76,12 @@ class balite(models.Model):
 class datte(models.Model):
     prix = models.IntegerField(default=0)
     time = models.CharField(max_length=50)
+    client = models.ForeignKey(Client, on_delete=models.SET_NULL, null=True, blank=True, related_name='datte_set')
 
     def save(self, *args, **kwargs):
         self.time = formatted_date
         super().save(*args, **kwargs)
-        client = models.ForeignKey(Client, on_delete=models.SET_NULL, null=True, blank=True, related_name='datte_set')
+        
     
 class vers(models.Model):
     prix = models.IntegerField(default=0)
