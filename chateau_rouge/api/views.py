@@ -136,3 +136,22 @@ def testEndPoint(request):
         return Response({'response': data}, status=status.HTTP_200_OK)
     return Response({}, status.HTTP_400_BAD_REQUEST)
 
+
+class ClientDetailView(APIView):
+    def get(self, request):
+        clients = Client.objects.all()
+        data = []
+        for client in clients:
+            dattes = client.datte_set.all()
+            vers = client.vers_set.all()
+            camany = client.camany
+            client_data = {
+                'id': client.id,
+                'name': client.name,
+                'prename': client.prename,
+                'datte': DatteSerializer(dattes, many=True).data,
+                'ers': VersSerializer(vers, many=True).data,
+                'camany': CamanySerializer(camany).data
+            }
+            data.append(client_data)
+        return Response(data)

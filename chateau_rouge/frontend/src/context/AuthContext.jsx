@@ -176,9 +176,7 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const clientadd = async (name, prename, company) => {
-    console.log(name, prename, company);
-    const integerCompany = parseInt(company, 10);
+  const clientadd = async (name, prename, companys) => {
     const response = await fetch("http://127.0.0.1:8000/api/clients/", {
       method: "POST",
       headers: {
@@ -187,7 +185,12 @@ export const AuthProvider = ({ children }) => {
       body: JSON.stringify({
         name,
         prename,
-        campany: integerCompany,
+        campany: companys.id, //{
+        //   id: companys.id,
+        //   name: companys.name,
+        //   place: companys.place,
+        //   re_com: companys.re_com,
+        // },
       }),
     });
     if (response.status === 201) {

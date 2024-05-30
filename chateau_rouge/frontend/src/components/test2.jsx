@@ -7,19 +7,32 @@ import AuthContex from "../context/AuthContext";
 import axios from "axios";
 
 const Test2 = () => {
+  const [selectedCompany, setSelectedCompany] = useState({
+    id: "",
+    name: "",
+    place: "",
+    re_com: "",
+  });
   const [client, setClient] = useState({
     name: "",
     prename: "",
-    company: 0,
+    camany: {
+      id: "",
+      name: "",
+      place: "",
+      re_com: "",
+    },
   });
     const { clientadd } = useContext(AuthContex);
     const handleSubmit = async (event) => {
       event.preventDefault();
       console.log(client);
       try {
-        client.company.length > 0 &&
+        console.log("p2")
+        client.camany.id.length > 0 &&
           client.name.length > 0 &&
-          clientadd(client.name, client.prename, client.company);
+          console.log("p1");
+          clientadd(client.name, client.prename, client.camany);
       } catch (error) {
         // Handle any errors that occur during the request
         console.error(error);
@@ -34,7 +47,7 @@ const Test2 = () => {
         .get("http://127.0.0.1:8000/api/camanies/")
         .then((res) => setCompany(res.data))
         .catch((err) => setErrors(err.response.data));
-    }, []);
+    }, [errors]);
   return (
     <div>
       <Charts
@@ -61,9 +74,15 @@ const Test2 = () => {
           }}
         />
         <select
-          value={client.company}
-          onChange={(e) => {
-            setClient({ ...client, company: e.target.value });
+          value={selectedCompany ? selectedCompany.id : ""}
+          onChange={(event) => {
+            const companyId = parseInt(event.target.value, 10);
+            const selectedCompany = companys.find(
+              (company) => company.id === companyId
+            );
+            console.log(selectedCompany)
+            setClient({ ...client, camany: selectedCompany });
+            setSelectedCompany(selectedCompany)
           }}
         >
           <option value="">Select a company</option>
@@ -73,6 +92,7 @@ const Test2 = () => {
             </option>
           ))}
         </select>
+        {selectedCompany && <div>Selected company: {selectedCompany.name}</div>}
         <button type="submit" id="brnn">
           <h3 style={{ fontWeight: "bold" }}>Sing up</h3>
         </button>

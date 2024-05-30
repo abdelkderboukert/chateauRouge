@@ -61,7 +61,7 @@ class RegisterSerializer(serializers.ModelSerializer):
 class CamanySerializer(serializers.ModelSerializer):
     class Meta:
         model = Camany
-        fields = ['id', 'id', 'name', 'place', 're_com']
+        fields = ['id', 'name', 'place', 're_com']
 
 class DatteSerializer(serializers.ModelSerializer):
     class Meta:
@@ -73,13 +73,20 @@ class VersSerializer(serializers.ModelSerializer):
         model = vers
         fields = ['id', 'prix', 'time', 'client']
 
+# class ClientSerializer(serializers.ModelSerializer):
+
+#     class Meta:
+#         model = Client
+#         fields = ('id', 'name', 'prename', 'vers', 'datte', 'campany')
+
 class ClientSerializer(serializers.ModelSerializer):
+    # datte = DatteSerializer(many=True)
+    # vers = VersSerializer(many=True)
+    # campany = CamanySerializer()
 
     class Meta:
         model = Client
         fields = ('id', 'name', 'prename', 'vers', 'datte', 'campany')
-
-
 
 class BuyingSerializer(serializers.ModelSerializer):
     balites = serializers.StringRelatedField(many=True)
