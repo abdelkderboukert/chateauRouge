@@ -176,8 +176,10 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const client = async (name, place, re_com, prename) => {
-    const response = await fetch("http://127.0.0.1:8000/api/camanies/", {
+  const clientadd = async (name, prename, company) => {
+    console.log(name, prename, company);
+    const integerCompany = parseInt(company, 10);
+    const response = await fetch("http://127.0.0.1:8000/api/clients/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -185,16 +187,11 @@ export const AuthProvider = ({ children }) => {
       body: JSON.stringify({
         name,
         prename,
-        re_com,
-        company: {
-          name,
-          place,
-          re_com,
-        },
+        campany: integerCompany,
       }),
     });
     if (response.status === 201) {
-      navigate("/companycreate");
+      // navigate("/companycreate");
       swal.fire({
         title: "company created Successful",
         icon: "success",
@@ -228,6 +225,7 @@ export const AuthProvider = ({ children }) => {
     loginUser,
     logoutUser,
     companyadd,
+    clientadd,
   };
 
   useEffect(() => {

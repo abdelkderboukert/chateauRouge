@@ -15,7 +15,6 @@ class Profile(models.Model):
     image = models.ImageField(upload_to="user_images", default="default.jpg")
     verified = models.BooleanField(default=False)
 
-
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
         Profile.objects.create(user=instance)
@@ -32,14 +31,12 @@ class Camany(models.Model):
     re_com =models.CharField(max_length=30)
     balites = models.ManyToManyField('Balite')
 
-
 class Client(models.Model):
     name = models.CharField(max_length=30)
     prename = models.CharField(max_length=30)
     campany = models.ForeignKey(Camany, on_delete=models.CASCADE)
     vers = models.ForeignKey('vers', on_delete=models.SET_NULL, null=True, blank=True, related_name='client_vers')
     datte = models.ForeignKey('datte', on_delete=models.SET_NULL, null=True, blank=True, related_name='client_datte')
-
 
 class Buying(models.Model):
     client = models.ForeignKey(Client, on_delete=models.CASCADE)
@@ -58,8 +55,7 @@ class Buying(models.Model):
         self.ptotal = self.prix_t
         self.time = formatted_date
         super().save(*args, **kwargs)
-    
-    
+      
 class balite(models.Model):
     name = models.CharField(max_length=100)
     color = models.CharField(max_length=30)
@@ -81,8 +77,7 @@ class datte(models.Model):
     def save(self, *args, **kwargs):
         self.time = formatted_date
         super().save(*args, **kwargs)
-        
-    
+         
 class vers(models.Model):
     prix = models.IntegerField(default=0)
     time = models.CharField(max_length=50)

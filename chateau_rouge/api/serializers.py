@@ -61,25 +61,24 @@ class RegisterSerializer(serializers.ModelSerializer):
 class CamanySerializer(serializers.ModelSerializer):
     class Meta:
         model = Camany
-        fields = ['name', 'place', 're_com']
+        fields = ['id', 'id', 'name', 'place', 're_com']
 
 class DatteSerializer(serializers.ModelSerializer):
     class Meta:
         model = datte
-        fields = ['prix', 'time', 'client']
+        fields = ['id', 'prix', 'time', 'client']
 
 class VersSerializer(serializers.ModelSerializer):
     class Meta:
         model = vers
-        fields = ['prix', 'time', 'client']
+        fields = ['id', 'prix', 'time', 'client']
 
 class ClientSerializer(serializers.ModelSerializer):
-    company = CamanySerializer()
-    vers = VersSerializer()
-    datte = DatteSerializer()
+
     class Meta:
         model = Client
-        fields = ['name', 'prename', 'company', 'vers', 'datte']
+        fields = ('id', 'name', 'prename', 'vers', 'datte', 'campany')
+
 
 
 class BuyingSerializer(serializers.ModelSerializer):
@@ -87,10 +86,10 @@ class BuyingSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Buying
-        fields = ['client', 'balites', 'ptotal', 'time']
+        fields = ['id', 'client', 'balites', 'ptotal', 'time']
 
 class BaliteSerializer(serializers.ModelSerializer):
     class Meta:
         model = balite
-        fields = ['name', 'color', 'prix', 'mitrage', 'prix_vendre', 'type', 'vent', 'client', 'campany']
+        fields = ['id', 'name', 'color', 'prix', 'mitrage', 'prix_vendre', 'type', 'vent', 'client', 'campany']
 

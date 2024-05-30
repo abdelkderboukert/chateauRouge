@@ -1,6 +1,7 @@
-import { useContext, useState, lazy } from "react";
+import { useContext, useState } from "react";
 import "../static/css/register.css";
-const AuthContext = lazy(() => import("../context/AuthContext"));
+// const AuthContext = lazy(() => import("../context/AuthContext"));
+import AuthContext from "../context/AuthContext";
 import { Link } from "react-router-dom";
 const Register = () => {
   const [user, setUser] = useState({
