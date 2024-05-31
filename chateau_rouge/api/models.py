@@ -35,8 +35,10 @@ class Client(models.Model):
     name = models.CharField(max_length=30)
     prename = models.CharField(max_length=30)
     campany = models.ForeignKey(Camany, on_delete=models.CASCADE)
-    vers = models.ForeignKey('vers', on_delete=models.SET_NULL, null=True, blank=True, related_name='client_vers')
-    datte = models.ForeignKey('datte', on_delete=models.SET_NULL, null=True, blank=True, related_name='client_datte')
+    # vers = models.ForeignKey('vers', on_delete=models.SET_NULL, null=True, blank=True, related_name='client_vers')
+    # datte = models.ForeignKey('datte', on_delete=models.SET_NULL, null=True, blank=True, related_name='client_datte')
+    vers_set = models.Manager()
+    datte_set = models.Manager()
 
 class Buying(models.Model):
     client = models.ForeignKey(Client, on_delete=models.CASCADE)

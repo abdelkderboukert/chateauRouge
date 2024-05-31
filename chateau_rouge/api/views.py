@@ -40,7 +40,7 @@ class CamanyView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class ClientView(APIView):
-    def get(self):
+    def get(self, request):
         clients = Client.objects.all()
         serializer = ClientSerializer(clients, many=True)
         return Response(serializer.data)
@@ -85,7 +85,7 @@ class DatteView(APIView):
         return Response(serializer.data)
 
     def post(self, request):
-        serializer = DatteSerializer(data=request.data)
+        serializer = DatteSerializer(data=request.data, context={'request': request})
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -98,7 +98,7 @@ class VersView(APIView):
         return Response(serializer.data)
 
     def post(self, request):
-        serializer = VersSerializer(data=request.data)
+        serializer = VersSerializer(data=request.data, context={'request': request})
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -135,23 +135,3 @@ def testEndPoint(request):
         data = f'Congratulation your API just responded to POST request with text: {text}'
         return Response({'response': data}, status=status.HTTP_200_OK)
     return Response({}, status.HTTP_400_BAD_REQUEST)
-
-
-class ClientDetailView(APIView):
-    def get(self, request):
-        clients = Client.objects.all()
-        data = []
-        for client in clients:
-            dattes = client.datte_set.all()
-            vers = client.vers_set.all()
-            camany = client.camany
-            client_data = {
-                'id': client.id,
-                'name': client.name,
-                'prename': client.prename,
-                'datte': DatteSerializer(dattes, many=True).data,
-                'ers': VersSerializer(vers, many=True).data,
-                'camany': CamanySerializer(camany).data
-            }
-            data.append(client_data)
-        return Response(data)

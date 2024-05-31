@@ -7,45 +7,38 @@ import AuthContex from "../context/AuthContext";
 import axios from "axios";
 
 const Test2 = () => {
-  const [selectedCompany, setSelectedCompany] = useState({
-    id: "",
-    name: "",
-    place: "",
-    re_com: "",
+  const [selectedClient, setSelectedClient] = useState({
+    prix: 0,
+    client: 0,
   });
-  const [client, setClient] = useState({
-    name: "",
-    prename: "",
-    camany: {
-      id: "",
-      name: "",
-      place: "",
-      re_com: "",
-    },
-  });
-    const { clientadd } = useContext(AuthContex);
+    const { datteadd } = useContext(AuthContex);
     const handleSubmit = async (event) => {
       event.preventDefault();
-      console.log(client);
+      console.log(dattes);
       try {
         console.log("p2")
-        client.camany.id.length > 0 &&
-          client.name.length > 0 &&
+        dattes.prix.length > 0 &&
+          dattes.client.length > 0 &&
           console.log("p1");
-          clientadd(client.name, client.prename, client.camany);
+          datteadd(dattes.prix, dattes.client);
       } catch (error) {
         // Handle any errors that occur during the request
         console.error(error);
         alert("An error occurred");
       }
     };
-    const [companys, setCompany] = useState([]);
+    const [clients, setClient] = useState([]);
+    const [dattes, setDettes] = useState({
+      id: "",
+      prix: 0,
+      client: 0,
+    });
     const [errors, setErrors] = useState({});
 
     useEffect(() => {
       axios
-        .get("http://127.0.0.1:8000/api/camanies/")
-        .then((res) => setCompany(res.data))
+        .get("http://127.0.0.1:8000/api/clients/")
+        .then((res) => setClient(res.data))
         .catch((err) => setErrors(err.response.data));
     }, [errors]);
   return (
@@ -59,40 +52,33 @@ const Test2 = () => {
       <form method="post" onSubmit={handleSubmit}>
         <input
           type="text"
-          name="name"
-          placeholder="name"
+          name="prix"
+          placeholder="prix"
           onChange={(e) => {
-            setClient({ ...client, [e.target.name]: e.target.value });
-          }}
-        />
-        <input
-          type="text"
-          name="prename"
-          placeholder="prename"
-          onChange={(e) => {
-            setClient({ ...client, [e.target.name]: e.target.value });
+            setDettes({ ...dattes, [e.target.name]: e.target.value });
           }}
         />
         <select
-          value={selectedCompany ? selectedCompany.id : ""}
+          value={selectedClient ? selectedClient.id : ""}
           onChange={(event) => {
-            const companyId = parseInt(event.target.value, 10);
-            const selectedCompany = companys.find(
-              (company) => company.id === companyId
+            const clientId = parseInt(event.target.value, 10);
+            const selectedClient = clients.find(
+              (client) => client.id === clientId
             );
-            console.log(selectedCompany)
-            setClient({ ...client, camany: selectedCompany });
-            setSelectedCompany(selectedCompany)
+            console.log(selectedClient);
+            setDettes({ ...dattes, client: selectedClient.id });
+            console.log(selectedClient.id)
+            setSelectedClient(selectedClient);
           }}
         >
-          <option value="">Select a company</option>
-          {companys.map((company) => (
-            <option key={company.id} value={company.id}>
-              {company.name}
+          <option value="">Select a client</option>
+          {clients.map((client) => (
+            <option key={clients.id} value={client.id}>
+              {client.name} {client.prename}
             </option>
           ))}
         </select>
-        {selectedCompany && <div>Selected company: {selectedCompany.name}</div>}
+        {selectedClient && <div>Selected client: {selectedClient.name} {selectedClient.prename}</div>}
         <button type="submit" id="brnn">
           <h3 style={{ fontWeight: "bold" }}>Sing up</h3>
         </button>

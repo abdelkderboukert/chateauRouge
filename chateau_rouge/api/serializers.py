@@ -64,25 +64,40 @@ class CamanySerializer(serializers.ModelSerializer):
         fields = ['id', 'name', 'place', 're_com']
 
 class DatteSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = datte
-        fields = ['id', 'prix', 'time', 'client']
+        fields = ['id', 'prix', 'client']
+
+    def create(self, validated_data):
+        Clientt = Client.objects.get(id=validated_data['client'].id)
+        Client_id = int(Clientt.id)
+        dattet = datte.objects.create(
+            prix = validated_data['prix'],
+            client = Clientt
+        )
+        dattet.save()
+        return dattet
+
 
 class VersSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = vers
-        fields = ['id', 'prix', 'time', 'client']
+        fields = ['id', 'prix', 'client']
 
-# class ClientSerializer(serializers.ModelSerializer):
+    def create(self, validated_data):
+        Clientt = Client.objects.get(id=validated_data['client'].id)
+        Client_id = int(verst.id)
+        verst = vers.objects.create(
+            prix = validated_data['prix'],
+            client = Clientt
+        )
+        verst.save()
+        return verst
 
-#     class Meta:
-#         model = Client
-#         fields = ('id', 'name', 'prename', 'vers', 'datte', 'campany')
 
 class ClientSerializer(serializers.ModelSerializer):
-    # datte = DatteSerializer(many=True)
-    # vers = VersSerializer(many=True)
-    # campany = CamanySerializer()
 
     class Meta:
         model = Client

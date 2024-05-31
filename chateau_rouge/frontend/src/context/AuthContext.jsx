@@ -196,7 +196,7 @@ export const AuthProvider = ({ children }) => {
     if (response.status === 201) {
       // navigate("/companycreate");
       swal.fire({
-        title: "company created Successful",
+        title: "client created Successful",
         icon: "success",
         toast: true,
         timer: 6000,
@@ -219,6 +219,42 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+    const datteadd = async (prix, id) => {
+      console.log(id)
+      const response = await fetch("http://127.0.0.1:8000/api/dattes/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          prix,
+          client: id,
+        }),
+      });
+      if (response.status === 201) {
+        swal.fire({
+          title: "datte added Successful",
+          icon: "success",
+          toast: true,
+          timer: 6000,
+          position: "top-right",
+          timerProgressBar: true,
+          showConfirmButton: false,
+        });
+      } else {
+        console.log(response.status);
+        console.log("there was a server issue");
+        swal.fire({
+          title: "An Error Occured " + response.status,
+          icon: "error",
+          toast: true,
+          timer: 6000,
+          position: "top-right",
+          timerProgressBar: true,
+          showConfirmButton: false,
+        });
+      }
+    };
   const contextData = {
     user,
     setUser,
@@ -229,6 +265,7 @@ export const AuthProvider = ({ children }) => {
     logoutUser,
     companyadd,
     clientadd,
+    datteadd,
   };
 
   useEffect(() => {

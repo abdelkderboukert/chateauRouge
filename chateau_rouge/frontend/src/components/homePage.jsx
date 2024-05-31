@@ -10,6 +10,7 @@ import { AuthProvider } from "../context/AuthContext";
 import Charts from "./charts";
 import Test2 from "./test2";
 import Company from "./company";
+import CreateClent from "./createClent";
 
 export default function HomePage() {
   return (
@@ -23,6 +24,14 @@ export default function HomePage() {
             element={
               <PrivateRoute>
                 <Home />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/createclient"
+            element={
+              <PrivateRoute>
+                <CreateClent />
               </PrivateRoute>
             }
           />

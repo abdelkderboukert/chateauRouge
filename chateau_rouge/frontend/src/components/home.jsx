@@ -211,12 +211,6 @@ function Home() {
           Copyright © Your Website 2023
         </div>
       </footer>
-      <Charts
-        id={1}
-        data1={[11, 32, "45", 32, 34, 52, 41]}
-        data2={[]}
-        categories={[]}
-      />
     </>
   );
 }
