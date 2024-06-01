@@ -69,14 +69,7 @@ export const AuthProvider = ({ children }) => {
       });
     }
   };
-
-  const registerUser = async (
-    email,
-    last_name,
-    first_name,
-    password,
-    password2
-  ) => {
+  const registerUser = async (email,last_name,first_name,password,password2) => {
     const response = await fetch("http://127.0.0.1:8000/api/register/", {
       method: "POST",
       headers: {
@@ -116,7 +109,6 @@ export const AuthProvider = ({ children }) => {
       });
     }
   };
-
   const logoutUser = () => {
     setAuthTokens(null);
     setUser(null);
@@ -133,12 +125,7 @@ export const AuthProvider = ({ children }) => {
       showConfirmButton: false,
     });
   };
-
-  const companyadd = async (
-    name,
-    place,
-    re_com,
-  ) => {
+  const companyadd = async (name,place,re_com) => {
     const response = await fetch("http://127.0.0.1:8000/api/camanies/", {
       method: "POST",
       headers: {
@@ -175,7 +162,6 @@ export const AuthProvider = ({ children }) => {
       });
     }
   };
-
   const clientadd = async (name, prename, companys) => {
     const response = await fetch("http://127.0.0.1:8000/api/clients/", {
       method: "POST",
@@ -218,43 +204,78 @@ export const AuthProvider = ({ children }) => {
       });
     }
   };
-
-    const datteadd = async (prix, id) => {
-      console.log(id)
-      const response = await fetch("http://127.0.0.1:8000/api/dattes/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          prix,
-          client: id,
-        }),
+  const datteadd = async (prix, id) => {
+    console.log(id)
+    const response = await fetch("http://127.0.0.1:8000/api/dattes/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        prix,
+        client: id,
+      }),
+    });
+    if (response.status === 201) {
+      swal.fire({
+        title: "datte added Successful",
+        icon: "success",
+        toast: true,
+        timer: 6000,
+        position: "top-right",
+        timerProgressBar: true,
+        showConfirmButton: false,
       });
-      if (response.status === 201) {
-        swal.fire({
-          title: "datte added Successful",
-          icon: "success",
-          toast: true,
-          timer: 6000,
-          position: "top-right",
-          timerProgressBar: true,
-          showConfirmButton: false,
-        });
-      } else {
-        console.log(response.status);
-        console.log("there was a server issue");
-        swal.fire({
-          title: "An Error Occured " + response.status,
-          icon: "error",
-          toast: true,
-          timer: 6000,
-          position: "top-right",
-          timerProgressBar: true,
-          showConfirmButton: false,
-        });
-      }
-    };
+    } else {
+      console.log(response.status);
+      console.log("there was a server issue");
+      swal.fire({
+        title: "An Error Occured " + response.status,
+        icon: "error",
+        toast: true,
+        timer: 6000,
+        position: "top-right",
+        timerProgressBar: true,
+        showConfirmButton: false,
+      });
+    }
+  };
+  const versadd = async (prix, id) => {
+    console.log(id);
+    const response = await fetch("http://127.0.0.1:8000/api/vers/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        prix,
+        client: id,
+      }),
+    });
+    if (response.status === 201) {
+      swal.fire({
+        title: "datte added Successful",
+        icon: "success",
+        toast: true,
+        timer: 6000,
+        position: "top-right",
+        timerProgressBar: true,
+        showConfirmButton: false,
+      });
+    } else {
+      console.log(response.status);
+      console.log("there was a server issue");
+      swal.fire({
+        title: "An Error Occured " + response.status,
+        icon: "error",
+        toast: true,
+        timer: 6000,
+        position: "top-right",
+        timerProgressBar: true,
+        showConfirmButton: false,
+      });
+    }
+  };
   const contextData = {
     user,
     setUser,
@@ -266,6 +287,7 @@ export const AuthProvider = ({ children }) => {
     companyadd,
     clientadd,
     datteadd,
+    versadd,
   };
 
   useEffect(() => {

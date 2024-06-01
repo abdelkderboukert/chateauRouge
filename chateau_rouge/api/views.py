@@ -81,7 +81,7 @@ class BaliteView(APIView):
 class DatteView(APIView):
     def get(self, request):
         dattes = datte.objects.all()
-        serializer = DatteSerializer(dattes, many=True)
+        serializer = DatteListeSerializer(dattes, many=True)
         return Response(serializer.data)
 
     def post(self, request):
@@ -104,7 +104,12 @@ class VersView(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
-     
+def dellet(request):
+    try:
+        datte.objects.exclude(id=0).delete()
+    except datte.DoesNotExist:
+        pass
+    Response(status=status.HTTP_201_CREATED)
 # Get All Routes
 
 @api_view(['GET'])

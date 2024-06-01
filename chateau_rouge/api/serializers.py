@@ -78,7 +78,13 @@ class DatteSerializer(serializers.ModelSerializer):
         )
         dattet.save()
         return dattet
+    
 
+class DatteListeSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = datte
+        fields = ['id', 'prix', 'time', 'client']
 
 class VersSerializer(serializers.ModelSerializer):
 
@@ -96,12 +102,11 @@ class VersSerializer(serializers.ModelSerializer):
         verst.save()
         return verst
 
-
 class ClientSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Client
-        fields = ('id', 'name', 'prename', 'vers', 'datte', 'campany')
+        fields = ('__all__')
 
 class BuyingSerializer(serializers.ModelSerializer):
     balites = serializers.StringRelatedField(many=True)

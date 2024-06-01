@@ -1,88 +1,38 @@
-import { useContext, useState, useEffect } from "react";
+import { useState, useEffect, useLayoutEffect } from "react";
 import Charts from "./charts";
-// const AuthContext = lazy(() => import("../context/AuthContext"));
-import AuthContex from "../context/AuthContext";
-// import useAxios from "../utils/useAxios";
-// import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
 const Test2 = () => {
-  const [selectedClient, setSelectedClient] = useState({
-    prix: 0,
-    client: 0,
-  });
-    const { datteadd } = useContext(AuthContex);
-    const handleSubmit = async (event) => {
-      event.preventDefault();
-      console.log(dattes);
-      try {
-        console.log("p2")
-        dattes.prix.length > 0 &&
-          dattes.client.length > 0 &&
-          console.log("p1");
-          datteadd(dattes.prix, dattes.client);
-      } catch (error) {
-        // Handle any errors that occur during the request
-        console.error(error);
-        alert("An error occurred");
-      }
-    };
-    const [clients, setClient] = useState([]);
-    const [dattes, setDettes] = useState({
-      id: "",
-      prix: 0,
-      client: 0,
-    });
-    const [errors, setErrors] = useState({});
+  const [dattes, setDettes] = useState([]);
+  const [categories, setcategories] = useState([]);
+  const [errors, setErrors] = useState({});
+  const data1 = ["11", "32", "45", "32", "34", "52", "41", "20"];
+  const data2 = [21, 43, 50, 40, 44, 45, 61, 30];
 
-    useEffect(() => {
-      axios
-        .get("http://127.0.0.1:8000/api/clients/")
-        .then((res) => setClient(res.data))
-        .catch((err) => setErrors(err.response.data));
-    }, [errors]);
+  useEffect(() => {
+    axios
+      .get("http://127.0.0.1:8000/api/dattes/")
+      .then((res) => {
+        setDettes(res.data);
+        setcategories(res.data.map((datte) => datte.time)); // Update data state here
+      })
+      .catch((err) => setErrors(err.response.data));
+  }, []);
+
+  useLayoutEffect(() => {
+    console.log(categories);
+  }, [categories]);
+
+  const finalCategories = categories; // Create a new variable to hold the final categories array
+
   return (
     <div>
-      <Charts
-        id={1}
-        data1={[11, 32, "45", 32, 34, 52, 41, 20]}
-        data2={[]}
-        categories={[]}
-      />
-      <form method="post" onSubmit={handleSubmit}>
-        <input
-          type="text"
-          name="prix"
-          placeholder="prix"
-          onChange={(e) => {
-            setDettes({ ...dattes, [e.target.name]: e.target.value });
-          }}
-        />
-        <select
-          value={selectedClient ? selectedClient.id : ""}
-          onChange={(event) => {
-            const clientId = parseInt(event.target.value, 10);
-            const selectedClient = clients.find(
-              (client) => client.id === clientId
-            );
-            console.log(selectedClient);
-            setDettes({ ...dattes, client: selectedClient.id });
-            console.log(selectedClient.id)
-            setSelectedClient(selectedClient);
-          }}
-        >
-          <option value="">Select a client</option>
-          {clients.map((client) => (
-            <option key={clients.id} value={client.id}>
-              {client.name} {client.prename}
-            </option>
-          ))}
-        </select>
-        {selectedClient && <div>Selected client: {selectedClient.name} {selectedClient.prename}</div>}
-        <button type="submit" id="brnn">
-          <h3 style={{ fontWeight: "bold" }}>Sing up</h3>
-        </button>
-      </form>
+      <Charts id={1} data1={data1} data2={data2} categories={finalCategories} />
+      {dattes.map((datte) => (
+        <div>
+          {datte.time} {datte.id}
+        </div>
+      ))}
     </div>
   );
 };

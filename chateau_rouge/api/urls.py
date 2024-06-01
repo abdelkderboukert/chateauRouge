@@ -16,5 +16,6 @@ urlpatterns = [
     path('balites/', BaliteView.as_view(), name='balites'),
     path('dattes/', DatteView.as_view(), name='dattes'),
     path('vers/', VersView.as_view(), name='vers'),
+    path('delet/', dellet),
     path('', getRoutes),
 ]
