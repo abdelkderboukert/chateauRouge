@@ -12,6 +12,7 @@ import Test2 from "./test2";
 import Company from "./company";
 import CreateClent from "./createClent";
 import Datteadd from "./datteadd";
+import Versadd from "./versadd";
 
 export default function HomePage() {
   return (
@@ -41,6 +42,14 @@ export default function HomePage() {
             element={
               <PrivateRoute>
                 <Datteadd />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/versadd"
+            element={
+              <PrivateRoute>
+                <Versadd />
               </PrivateRoute>
             }
           />

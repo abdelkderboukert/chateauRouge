@@ -79,7 +79,6 @@ class DatteSerializer(serializers.ModelSerializer):
         dattet.save()
         return dattet
     
-
 class DatteListeSerializer(serializers.ModelSerializer):
 
     class Meta:
@@ -101,6 +100,12 @@ class VersSerializer(serializers.ModelSerializer):
         )
         verst.save()
         return verst
+
+class VersListeSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = datte
+        fields = ['id', 'prix', 'time', 'client']
 
 class ClientSerializer(serializers.ModelSerializer):
 

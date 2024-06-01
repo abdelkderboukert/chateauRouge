@@ -2,17 +2,13 @@ import React, { useState } from "react";
 import Chart from "react-apexcharts";
 
 const Charts = (props) => {
+  // console.log(props)
   const data1 = props.data1.map((value) => parseInt(value));
-  const data2 = props.data2.map((value) => parseInt(value));
   const [state, setstate] = useState({
     series: [
       {
         name: "series1",
         data: data1,
-      },
-      {
-        name: "series2",
-        data: data2,
       },
     ],
     options: {

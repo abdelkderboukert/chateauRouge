@@ -94,7 +94,7 @@ class DatteView(APIView):
 class VersView(APIView):
     def get(self, request):
         ver = vers.objects.all()
-        serializer = VersSerializer(ver, many=True)
+        serializer = VersListeSerializer(ver, many=True)
         return Response(serializer.data)
 
     def post(self, request):
