@@ -2,8 +2,14 @@ import { useContext, useState } from "react";
 import "../static/css/test.css";
 import { Link } from "react-router-dom";
 import AuthContext from "../context/AuthContext";
+import Test2 from "./test2";
 
 const Test = () => {
+    const [showTest2, setShowTest2] = useState(false);
+
+    const handleRenderTest2 = () => {
+      setShowTest2((prevShowTest2) => !prevShowTest2);
+    };
   const [user, setUser] = useState({
     username: "",
     password: "",
@@ -272,6 +278,8 @@ const Test = () => {
         </div>
       </footer>
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+      <button onClick={handleRenderTest2}>Render Test2</button>
+      {showTest2 && <Test2 renderTest2={showTest2} />}
     </div>
   );
 };

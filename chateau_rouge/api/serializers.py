@@ -93,7 +93,6 @@ class VersSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         Clientt = Client.objects.get(id=validated_data['client'].id)
-        Client_id = int(verst.id)
         verst = vers.objects.create(
             prix = validated_data['prix'],
             client = Clientt
