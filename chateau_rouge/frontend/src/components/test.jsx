@@ -2,17 +2,9 @@ import { useContext, useState,useRef } from "react";
 import "../static/css/test.css";
 import { Link } from "react-router-dom";
 import AuthContext from "../context/AuthContext";
-import Test2 from "./test2";
+import Chartsclient from "./chartsclient";
 
 const Test = () => {
-const [showTest2, setShowTest2] = useState(false);
-const idRef = useRef(false);
-
-const handleRenderTest2 = () => {
-  setShowTest2((prevShowTest2) => !prevShowTest2);
-  idRef.current = !idRef.current;
-  console.log(idRef)
-};
   const [user, setUser] = useState({
     username: "",
     password: "",
@@ -275,15 +267,12 @@ const handleRenderTest2 = () => {
           </div>
         </div>
       </section>
-      {!idRef.current && <Test2 id={0} />}
-      {idRef.current && <Test2 id={2} />}
       <footer className="footer bg-black small text-center text-white-50">
         <div className="container px-4 px-lg-5">
           Copyright &copy; algeriaON.dz 2023
         </div>
       </footer>
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-      <button onClick={handleRenderTest2}>Render Test2</button>
     </div>
   );
 };

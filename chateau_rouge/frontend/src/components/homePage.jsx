@@ -7,12 +7,13 @@ import Home from "./home";
 
 import PrivateRoute from "../utils/PrivateRoute";
 import { AuthProvider } from "../context/AuthContext";
-import Charts from "./charts";
-import Test2 from "./test2";
+import Chartsclient from "./chartsclient";
 import Company from "./company";
 import CreateClent from "./createClent";
 import Datteadd from "./datteadd";
 import Versadd from "./versadd";
+import Clientliste from "./clientliste";
+import Test2 from "./test2";
 
 export default function HomePage() {
   return (
@@ -53,9 +54,10 @@ export default function HomePage() {
               </PrivateRoute>
             }
           />
-          <Route path="/cherts" element={<Charts />} />
-          <Route path="/" element={<Test />} />
+          <Route path="/cherts" element={<Clientliste />} />
           <Route path="/test2" element={<Test2 />} />
+          <Route path="/" element={<Test />} />
+          <Route path="/test2" element={<Chartsclient />} />
           <Route path="/companycreate" element={<Company />} />
         </Routes>
       </AuthProvider>
