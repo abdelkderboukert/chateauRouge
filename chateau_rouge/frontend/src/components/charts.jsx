@@ -29,18 +29,28 @@ const Charts = (props) => {
           format: "dd/MM/yy HH:mm",
         },
       },
+      title: {
+        display: true,
+        text: props.title,
+        fontcolor: "red",
+      },
     },
   });
   const id = props.id;
   return (
     <>
-      <div id={`chart-${id}`}>
+      <div id={`chart-${id}`}
+      style={{
+        background:"#F0F8FF",
+        borderRadius :"20px",
+        margin : "5px"
+        }}>
         <Chart
           options={state.options}
           series={state.series}
           type="area"
           height={350}
-          width={"250%"}
+          width={"223%"}
         />
       </div>
       <div id={`html-dist-${id}`}></div>
