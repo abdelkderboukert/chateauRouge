@@ -4,6 +4,7 @@ import { useContext } from "react";
 import useAxios from "../utils/useAxios";
 import { useQuery } from "@tanstack/react-query";
 import Charts from "./charts";
+import { Link } from "react-router-dom";
 
 function Home() {
   const axiosInstance = useAxios();
@@ -211,6 +212,31 @@ function Home() {
           Copyright © Your Website 2023
         </div>
       </footer>
+      <button>
+        <Link to="/createclient" className="nav-link">
+          creat client
+        </Link>
+      </button>
+      <button>
+        <Link to="/datteadd" className="nav-link">
+          add datte
+        </Link>
+      </button>
+      <button>
+        <Link to="/versadd" className="nav-link">
+          add vers
+        </Link>
+      </button>
+      <button>
+        <Link to="/companycreate" className="nav-link">
+          creat company
+        </Link>
+      </button>
+      <button>
+        <Link to="/client" className="nav-link">
+          liste of client
+        </Link>
+      </button>
     </>
   );
 }

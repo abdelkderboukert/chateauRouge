@@ -1,6 +1,5 @@
-import React , {useState, useContext, lazy}from 'react';
-// import AuthContext from "../context/AuthContext";
-const AuthContext = lazy(() => import("../context/AuthContext"));
+import React , {useState, useContext }from 'react';
+import AuthContext from "../context/AuthContext";
 
 
 const Company = () => {

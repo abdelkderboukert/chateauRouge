@@ -2,12 +2,11 @@ import React from "react";
 import { BrowserRouter as Router } from "react-router-dom";
 import { Routes, Route } from "react-router-dom";
 import Register from "./register";
-import Test from "./test";
+import Test from "./login";
 import Home from "./home";
 
 import PrivateRoute from "../utils/PrivateRoute";
 import { AuthProvider } from "../context/AuthContext";
-import Chartsclient from "./chartsclient";
 import Company from "./company";
 import CreateClent from "./createClent";
 import Datteadd from "./datteadd";
@@ -54,10 +53,25 @@ export default function HomePage() {
               </PrivateRoute>
             }
           />
+          <Route
+            path="/companycreate"
+            element={
+              <PrivateRoute>
+                <Company />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/client"
+            element={
+              <PrivateRoute>
+                <Clientliste />
+              </PrivateRoute>
+            }
+          />
           <Route path="/cherts" element={<Clientliste />} />
           <Route path="/test2" element={<Test2 />} />
           <Route path="/" element={<Test />} />
-          <Route path="/test2" element={<Chartsclient />} />
           <Route path="/companycreate" element={<Company />} />
         </Routes>
       </AuthProvider>

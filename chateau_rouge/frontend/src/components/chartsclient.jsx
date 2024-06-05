@@ -58,24 +58,6 @@ const Chartsclient = ({id}) => {
         categories={finalCategoriesvers}
         title="vers"
       />
-      {/* dettes
-      {dattes.map((datte) => (
-        <div key={datte.id}>
-          {datte.time} {datte.id} {datte.client}
-        </div>
-      ))}
-      vers
-      {verss.map((vers) => (
-        <div
-          key={vers.id}
-          style={{
-            display: "flex",
-            flexDirection: "column",
-          }}
-        >
-          {vers.time} {vers.id} {vers.client}
-        </div>
-      ))} */}
     </div>
   );
 };

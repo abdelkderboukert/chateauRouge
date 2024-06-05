@@ -2,6 +2,7 @@ from django.db import models
 from django.db.models.signals import post_save
 from django.contrib.auth.models import User
 from datetime import datetime
+from django.utils.timezone import now
 
 d = datetime.now()
 formatted_date = d.strftime("%Y-%m-%dT%H:%M:%S.000Z")
@@ -78,7 +79,7 @@ class datte(models.Model):
     client = models.ForeignKey(Client, on_delete=models.SET_NULL, null=True, blank=True, related_name='datte_set')
 
     def save(self, *args, **kwargs):
-        self.time = formatted_date
+        self.time = now().strftime("%Y-%m-%dT%H:%M:%S.000Z")
         super().save(*args, **kwargs)
          
 class vers(models.Model):
@@ -87,5 +88,5 @@ class vers(models.Model):
     client = models.ForeignKey(Client, on_delete=models.SET_NULL, null=True, blank=True, related_name='vers_set')
 
     def save(self, *args, **kwargs):
-        self.time = formatted_date
+        self.time = now().strftime("%Y-%m-%dT%H:%M:%S.000Z")
         super().save(*args, **kwargs)
