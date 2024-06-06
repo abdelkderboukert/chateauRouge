@@ -1,41 +1,45 @@
-import React, { useState } from "react";
+import React, { useMemo } from "react";
 import Chart from "react-apexcharts";
 
 const Charts = (props) => {
   const data1 = props.data1.map((value) => parseInt(value));
-  const [state] = useState({
-    series: [
-      {
-        name: "series1",
-        data: data1,
-      },
-    ],
-    options: {
-      chart: {
-        type: "area",
-      },
-      dataLabels: {
-        enabled: false,
-      },
-      stroke: {
-        curve: "smooth",
-      },
-      xaxis: {
-        type: "datetime",
-        categories: props.categories,
-      },
-      tooltip: {
-        x: {
-          format: "dd/MM/yy HH:mm",
+  console.log(data1, props.categories);
+  const state = useMemo(
+    () => ({
+      series: [
+        {
+          name: "series1",
+          data: data1,
+        },
+      ],
+      options: {
+        chart: {
+          type: "area",
+        },
+        dataLabels: {
+          enabled: false,
+        },
+        stroke: {
+          curve: "smooth",
+        },
+        xaxis: {
+          type: "datetime",
+          categories: props.categories,
+        },
+        tooltip: {
+          x: {
+            format: "dd/MM/yy HH:mm",
+          },
+        },
+        title: {
+          display: true,
+          text: props.title,
+          fontcolor: "red",
         },
       },
-      title: {
-        display: true,
-        text: props.title,
-        fontcolor: "red",
-      },
-    },
-  });
+    }),
+    [props.categories, data1, props.title]
+  );
   const id = props.id;
   return (
     <>

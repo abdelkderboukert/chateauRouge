@@ -38,9 +38,9 @@ const Chartsclient = ({id}) => {
       .catch((err) => setErrors(err.response.data));
   }, [errors, id]);
 
-  if (loading&&loading1) {
-    return <div>Loading...</div>; // Show a loading indicator
-  }
+  // if (loading&&loading1) {
+  //   return <div>Loading...</div>; // Show a loading indicator
+  // }
 
   const finalCategories = categories;
   const finalCategoriesvers = categoriesvers;

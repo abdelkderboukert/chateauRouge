@@ -11,7 +11,7 @@ const Clientliste = () => {
   const [companys, setCompany] = useState();
   const [clients, setClient] = useState();
   const [errors, setErrors] = useState({});
-  const [loading, setLoading] = useState(true);
+  // const [loading, setLoading] = useState(true);
   const [currentCompanyId, setCurrentCompanyId] = useState(0);
   const [currentClientId, setCurrentClientId] = useState(0);
   const statRef = useRef(false);
@@ -45,21 +45,21 @@ const Clientliste = () => {
   };
 
   useEffect(() => {
-    setLoading(true);
+    // setLoading(true);
     axios
       .get("http://127.0.0.1:8000/api/camanies/")
       .then((res) => {
         setCompany(res.data);
-        setLoading(false);
+        // setLoading(false);
       })
       .catch((err) => {
         setErrors(err.response.data);
-        setLoading(false);
+        // setLoading(false);
       });
   }, [errors]);
 
   useEffect(() => {
-    setLoading(true);
+    // setLoading(true);
     axios
       .get("http://127.0.0.1:8000/api/clients/")
       .then((res) => {
@@ -67,17 +67,17 @@ const Clientliste = () => {
           (client) => client.campany === currentCompanyId
         );
         setClient(filteredclient);
-        setLoading(false);
+        // setLoading(false);
       })
       .catch((err) => {
         setErrors(err.response.data);
-        setLoading(false);
+        // setLoading(false);
       });
   }, [errors,currentCompanyId]);
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
+  // if (loading) {
+  //   return <div>Loading...</div>;
+  // }
 
   return (
     <div>
