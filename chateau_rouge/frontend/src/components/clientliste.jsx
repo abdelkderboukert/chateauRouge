@@ -8,6 +8,8 @@ const Clientliste = () => {
   const [showTest2, setShowTest2] = useState(false);
   const [showCreatClient, setShowCreatClient] = useState(false);
   const [showCreatCompany, setShowCreatCompany] = useState(false);
+  const [queryclient, setQueryClient] = useState("");
+  const [querycompany, setQueryCompany] = useState("");
   const [companys, setCompany] = useState();
   const [clients, setClient] = useState();
   const [errors, setErrors] = useState({});
@@ -44,10 +46,18 @@ const Clientliste = () => {
     console.log(currentClientId);
   };
 
+  const handleSearchClient = (event) => {
+    setQueryClient(event.target.value);
+  };
+
+  const handleSearchCompany = (event) => {
+    setQueryCompany(event.target.value);
+  };
+
   useEffect(() => {
     // setLoading(true);
     axios
-      .get("http://127.0.0.1:8000/api/camanies/")
+      .get(`http://localhost:8000/api/camanies/?q=${querycompany}`)
       .then((res) => {
         setCompany(res.data);
         // setLoading(false);
@@ -56,24 +66,27 @@ const Clientliste = () => {
         setErrors(err.response.data);
         // setLoading(false);
       });
-  }, [errors]);
+  }, [errors,querycompany]);
 
   useEffect(() => {
-    // setLoading(true);
-    axios
-      .get("http://127.0.0.1:8000/api/clients/")
-      .then((res) => {
-        const filteredclient = res.data.filter(
-          (client) => client.campany === currentCompanyId
-        );
-        setClient(filteredclient);
-        // setLoading(false);
-      })
-      .catch((err) => {
-        setErrors(err.response.data);
-        // setLoading(false);
-      });
-  }, [errors,currentCompanyId]);
+    try {
+      axios
+        .get(`http://localhost:8000/api/clients/?q=${queryclient}`)
+        .then((res) => {
+          const filteredclient = res.data.filter(
+            (client) => client.campany === currentCompanyId
+          );
+          setClient(filteredclient);
+          // setLoading(false);
+        })
+        .catch((err) => {
+          setErrors(err.response.data);
+          // setLoading(false);
+        });
+    } catch (error) {
+      console.error(error);
+    }
+  }, [errors,currentCompanyId,queryclient]);
 
   // if (loading) {
   //   return <div>Loading...</div>;
@@ -81,7 +94,8 @@ const Clientliste = () => {
 
   return (
     <div>
-      <Chartsclient id={currentClientId} key={currentClientId} />{/*  */}
+      <Chartsclient id={currentClientId} key={currentClientId} />
+      {/*  */}
       <div
         style={{
           display: "flex",
@@ -96,6 +110,12 @@ const Clientliste = () => {
             width: "50%",
           }}
         >
+          <input
+            type="search"
+            value={querycompany}
+            onChange={handleSearchCompany}
+            placeholder="Search company"
+          />
           {companys &&
             companys.map((company) => (
               <div key={company.id}>
@@ -119,6 +139,12 @@ const Clientliste = () => {
             width: "50%",
           }}
         >
+          <input
+            type="search"
+            value={queryclient}
+            onChange={handleSearchClient}
+            placeholder="Search client"
+          />
           {companys &&
             clients &&
             clients.map((client) => (

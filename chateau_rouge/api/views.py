@@ -28,8 +28,12 @@ class UserListview(APIView):
     
 class CamanyView(APIView):
     def get(self, request):
-        camanies = Camany.objects.all()
-        serializer = CamanySerializer(camanies, many=True)
+        query = request.GET.get('q')
+        if query:
+            balites = Camany.objects.filter(name__icontains=query)
+        else:
+            balites = Camany.objects.all()
+        serializer = CamanySerializer(balites, many=True)
         return Response(serializer.data)
 
     def post(self, request):
@@ -41,8 +45,12 @@ class CamanyView(APIView):
 
 class ClientView(APIView):
     def get(self, request):
-        clients = Client.objects.all()
-        serializer = ClientSerializer(clients, many=True)
+        query = request.GET.get('q')
+        if query:
+            balites = Client.objects.filter(name__icontains=query)
+        else:
+            balites = Client.objects.all()
+        serializer = ClientSerializer(balites, many=True)
         return Response(serializer.data)
 
     def post(self, request):
@@ -67,8 +75,12 @@ class BuyingView(APIView):
 
 class BaliteView(APIView):
     def get(self, request):
-        balites = balite.objects.all()
-        serializer = BaliteSerializer(balites, many=True)
+        query = request.GET.get('q')
+        if query:
+            balites = Client.objects.filter(name__icontains=query)
+        else:
+            balites = Client.objects.all()
+        serializer = ClientSerializer(balites, many=True)
         return Response(serializer.data)
 
     def post(self, request):
@@ -80,8 +92,12 @@ class BaliteView(APIView):
 
 class DatteView(APIView):
     def get(self, request):
-        dattes = datte.objects.all()
-        serializer = DatteListeSerializer(dattes, many=True)
+        query = request.GET.get('q')
+        if query:
+            balites = datte.objects.filter(name__icontains=query)
+        else:
+            balites = datte.objects.all()
+        serializer = DatteListeSerializer(balites, many=True)
         return Response(serializer.data)
 
     def post(self, request):
@@ -93,8 +109,12 @@ class DatteView(APIView):
 
 class VersView(APIView):
     def get(self, request):
-        ver = vers.objects.all()
-        serializer = VersListeSerializer(ver, many=True)
+        query = request.GET.get('q')
+        if query:
+            balites = vers.objects.filter(name__icontains=query)
+        else:
+            balites = vers.objects.all()
+        serializer = VersListeSerializer(balites, many=True)
         return Response(serializer.data)
 
     def post(self, request):

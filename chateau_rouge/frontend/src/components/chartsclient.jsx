@@ -3,24 +3,19 @@ import Charts from "./charts";
 import axios from "axios";
 
 const Chartsclient = ({id}) => {
-  // const [dattes, setDettes] = useState([]);
-  // const [verss, setVerss] = useState([]);
   const [categories, setcategories] = useState([]);
   const [categoriesvers, setcategoriesvers] = useState([]);
   const [data, setdata] = useState([]);
   const [datavers, setdatavers] = useState([]);
   const [errors, setErrors] = useState({});
-  const [loading, setLoading] = useState(true);
-  const [loading1, setLoading1] = useState(true); // Add a loading state
+  const [loading1, setLoading1] = useState(true);
   useEffect(() => {
     axios
       .get("http://127.0.0.1:8000/api/dattes/")
       .then((res) => {
         const filteredDattes = res.data.filter((datte) => datte.client === id);
-        // setDettes(filteredDattes);
         setcategories(filteredDattes.map((datte) => datte.time));
         setdata(filteredDattes.map((datte) => datte.prix));
-        setLoading(false); // Set loading to false when data is received
       })
       .catch((err) => setErrors(err.response.data));
   }, [errors, id]);
@@ -30,17 +25,12 @@ const Chartsclient = ({id}) => {
       .get("http://127.0.0.1:8000/api/vers/")
       .then((res) => {
         const filteredVerss = res.data.filter((vers) => vers.client === id);
-        // setVerss(filteredVerss);
         setcategoriesvers(filteredVerss.map((vers) => vers.time));
         setdatavers(filteredVerss.map((vers) => vers.prix));
-        setLoading1(false); // Set loading to false when data is received
+        setLoading1(false);
       })
       .catch((err) => setErrors(err.response.data));
   }, [errors, id]);
-
-  // if (loading&&loading1) {
-  //   return <div>Loading...</div>; // Show a loading indicator
-  // }
 
   const finalCategories = categories;
   const finalCategoriesvers = categoriesvers;

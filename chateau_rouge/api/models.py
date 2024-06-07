@@ -53,7 +53,7 @@ class Buying(models.Model):
 
     def save(self, *args, **kwargs):
         self.ptotal = self.prix_t
-        self.time = formatted_date
+        self.time = now().strftime("%Y-%m-%dT%H:%M:%S.000Z")
         super().save(*args, **kwargs)
       
 class balite(models.Model):

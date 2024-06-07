@@ -13,6 +13,7 @@ import Datteadd from "./datteadd";
 import Versadd from "./versadd";
 import Clientliste from "./clientliste";
 import Test2 from "./test2";
+import SearchBal from "./searchBal";
 
 export default function HomePage() {
   return (
@@ -73,6 +74,7 @@ export default function HomePage() {
           <Route path="/test2" element={<Test2 />} />
           <Route path="/" element={<Test />} />
           <Route path="/companycreate" element={<Company />} />
+          <Route path="/balit" element={<SearchBal />} />
         </Routes>
       </AuthProvider>
     </Router>
