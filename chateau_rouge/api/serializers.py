@@ -113,7 +113,7 @@ class ClientSerializer(serializers.ModelSerializer):
         fields = ('__all__')
 
 class BuyingSerializer(serializers.ModelSerializer):
-    balites = serializers.StringRelatedField(many=True)
+    balites = serializers.PrimaryKeyRelatedField(many=True, queryset=balite.objects.all(), write_only=True)
 
     class Meta:
         model = Buying

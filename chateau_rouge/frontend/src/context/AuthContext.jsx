@@ -276,7 +276,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const buyingadd = async (client, balites, ptotal) => {
-    const response = await fetch("http://127.0.0.1:8000/api/balites/", {
+    const response = await fetch("http://127.0.0.1:8000/api/buyings/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -285,11 +285,12 @@ export const AuthProvider = ({ children }) => {
         client,
         balites,
         ptotal,
+        time : "ggg"
       }),
     });
     if (response.status === 201) {
       swal.fire({
-        title: "datte added Successful",
+        title: "buying added Successful",
         icon: "success",
         toast: true,
         timer: 6000,

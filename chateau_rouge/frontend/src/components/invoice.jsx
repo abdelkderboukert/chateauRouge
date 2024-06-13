@@ -57,10 +57,12 @@ const Invoice = () => {
       ptotal: totalPrice,
     };
     console.log(newBuying,5==='5',balites)
+    const ids_b = balitesWithMitrage.map((item) => item.balite_id);
+    console.log(ids_b)
     try {
       console.log("p2");
       client > 0 && totalPrice > 0
-      buyingadd(client, balitesWithMitrage, totalPrice);
+      buyingadd(client, ids_b, totalPrice);
     } catch (error) {
       // Handle any errors that occur during the request
       console.error(error);
