@@ -77,10 +77,10 @@ class BaliteView(APIView):
     def get(self, request):
         query = request.GET.get('q')
         if query:
-            balites = Client.objects.filter(name__icontains=query)
+            balites = balite.objects.filter(name__icontains=query)
         else:
-            balites = Client.objects.all()
-        serializer = ClientSerializer(balites, many=True)
+            balites = balite.objects.all()
+        serializer = BaliteSerializer(balites, many=True)
         return Response(serializer.data)
 
     def post(self, request):

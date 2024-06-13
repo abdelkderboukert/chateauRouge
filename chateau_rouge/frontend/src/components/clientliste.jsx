@@ -3,6 +3,7 @@ import Chartsclient from "./chartsclient";
 import axios from "axios";
 import CreateClent from "./createClent";
 import Company from "./company";
+import { motion } from "framer-motion";
 
 const Clientliste = () => {
   const [showTest2, setShowTest2] = useState(false);
@@ -116,20 +117,22 @@ const Clientliste = () => {
             onChange={handleSearchCompany}
             placeholder="Search company"
           />
-          {companys &&
-            companys.map((company) => (
-              <div key={company.id}>
-                {company.id} {company.name} {company.place} {company.re_com}{" "}
-                <button
-                  onClick={() => handleIdCompany(company.id)}
-                  style={{ background: "red" }}
-                >
-                  click
-                </button>
-              </div>
-            ))}
+            {companys &&
+              companys.map((company) => (
+                <div key={company.id}>
+                  {company.id} {company.name} {company.place} {company.re_com}{" "}
+                  <button
+                    onClick={() => handleIdCompany(company.id)}
+                    style={{ background: "red" }}
+                  >
+                    click
+                  </button>
+                </div>
+              ))}
           {statCompanytRef.current && <Company />}
-          <button onClick={addCompany}>add client</button>
+          <motion.button onClick={addCompany} layout>
+            add client
+          </motion.button>
         </div>
         {console.log(clients)}
         <div
@@ -163,9 +166,12 @@ const Clientliste = () => {
                   click
                 </button>
               </div>
-            ))}
+            ))
+          }
           {statClientRef.current && <CreateClent />}
-          <button onClick={addClient}>add client</button>
+          <motion.button onClick={addClient} layout>
+            add client
+          </motion.button>
         </div>
       </div>
       <button onClick={handleRenderTest2}>Render Test2</button>

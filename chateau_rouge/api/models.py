@@ -49,7 +49,7 @@ class Buying(models.Model):
 
     @property
     def prix_t(self):
-        return sum(balite.selling_price for balite in self.balites.all())
+        return sum(balite.prix_vendre for balite in self.balites.all())
 
     def save(self, *args, **kwargs):
         self.ptotal = self.prix_t
