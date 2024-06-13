@@ -39,7 +39,9 @@ const Invoice = () => {
       console.error(error);
     }
   }, [errors, queryBalites]);
+
   const { buyingadd } = useContext(AuthContex);
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
     const balitesWithMitrage = wbalites.map((baliteId) => ({
@@ -51,16 +53,9 @@ const Invoice = () => {
       const balite = balites.find((balite) => balite.id === item.balite_id); // Fetch the balite object using item.balite_id to get the prix_vendre;
       return total + balite.prix_vendre * parseFloat(item.mitrage);
     }, 0);
-    const newBuying = {
-      client_id: client,
-      balites: balitesWithMitrage,
-      ptotal: totalPrice,
-    };
-    console.log(newBuying,5==='5',balites)
+
     const ids_b = balitesWithMitrage.map((item) => item.balite_id);
-    console.log(ids_b)
     try {
-      console.log("p2");
       client > 0 && totalPrice > 0
       buyingadd(client, ids_b, totalPrice);
     } catch (error) {

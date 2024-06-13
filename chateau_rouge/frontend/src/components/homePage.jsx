@@ -14,6 +14,7 @@ import Versadd from "./versadd";
 import Clientliste from "./clientliste";
 import Test2 from "./test2";
 import Invoice from "./invoice";
+import Balitesadd from "./balitesadd";
 
 export default function HomePage() {
   return (
@@ -70,11 +71,27 @@ export default function HomePage() {
               </PrivateRoute>
             }
           />
+          <Route
+            path="/buying"
+            element={
+              <PrivateRoute>
+                <Invoice />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/balit_add"
+            element={
+              <PrivateRoute>
+                <Balitesadd />
+              </PrivateRoute>
+            }
+          />
           <Route path="/cherts" element={<Clientliste />} />
           <Route path="/test2" element={<Test2 />} />
           <Route path="/" element={<Test />} />
           <Route path="/companycreate" element={<Company />} />
-          <Route path="/balit" element={<Invoice />} />
+          <Route path="/balit" element={<Balitesadd />} />
         </Routes>
       </AuthProvider>
     </Router>
