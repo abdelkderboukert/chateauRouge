@@ -1,154 +1,112 @@
-// import React,{useState, useEffect} from 'react';
-// import axios from 'axios';
-
-// const Invoice = () => {
-//     const [clientId, setClientId] = useState("");
-//     const [clients, setClient] = useState([]);
-    // const [errors, setErrors] = useState({});
-//     const [balites, setBalites] = useState([]);
-//     const [buying, setBuying] = useState({
-//         clients: [],
-//         balite: balites
-//     });
-
-//     const handleSubmit = async (event) => {
-//       event.preventDefault();
-//     };
-
-//     useEffect(() => {
-//         axios
-//         .get("http://127.0.0.1:8000/api/clients/")
-//         .then((res) => setClient(res.data))
-//         .catch((err) => setErrors(err.response.data));
-//     }, [errors]);
-
-//     useEffect(() => {
-//       axios
-//         .get("http://127.0.0.1:8000/api/balites/")
-//         .then((res) => setBalites(res.data))
-//         .catch((err) => setErrors(err.response.data));
-//     }, [errors]);
-
-//     return (
-//       <>
-//         <form onSubmit={handleSubmit}>
-//           <select
-//             multiple
-//             value={[clientId]}
-//             onChange={(e) => {
-//               setBuying({ ...buying, ...clients, clients:[e.target.value] });
-//               console.log(buying)
-//             }}
-//           >
-//             <option value="">Select a client</option>
-//             {clients.map((client) => (
-//               <option key={clients.id} value={client.id}>
-//                 {client.name} {client.prename}
-//               </option>
-//             ))}
-//           </select>
-
-//           <select
-//             multiple
-//             value={balites}
-//             onChange={(event) => setBalites(event.target.value)}
-//           >
-//             <option value="">Select a client</option>
-//             {balites.map((balite) => (
-//               <option key={balite.id} value={balite.id}>
-//                 {balite.name} {balite.color} {balite.color}
-//               </option>
-//             ))}
-//           </select>
-//           <button type="submit">Create Buying</button>
-//           {buying && <div>Buying created: {buying.id}</div>}
-//         </form>
-//       </>
-//     );
-// }
-
-// export default Invoice;
-import React, { useState,useEffect } from 'react';
-import axios from 'axios';
+import React, { useState, useEffect, useContext } from "react";
+import  Select  from "react-select";
+import AuthContex from "../context/AuthContext";
+import axios from "axios";
 
 const Invoice = () => {
   const [client, setwClient] = useState();
   const [clients, setClient] = useState([]);
+  const [queryBalites, setQueryBalites] = useState("");
   const [balites, setBalites] = useState([]);
-  const [wbalites, setwBalites] = useState([]);
+  const [wbalites, setwBalites] = useState([]); // store the selected balite IDs
   const [mitrages, setMitrages] = useState({});
   const [errors, setErrors] = useState({});
-  
+
   useEffect(() => {
-      axios
+    axios
       .get("http://127.0.0.1:8000/api/clients/")
       .then((res) => setClient(res.data))
       .catch((err) => setErrors(err.response.data));
   }, [errors]);
 
-  useEffect(() => {
-    axios
-      .get("http://127.0.0.1:8000/api/balites/")
-      .then((res) => setBalites(res.data))
-      .catch((err) => setErrors(err.response.data));
-  }, [errors]);
+  const handleSearchBalites = (event) => {
+    setQueryBalites(event.target.value);
+  };
 
+  useEffect(() => {
+    try {
+      axios
+        .get(`http://localhost:8000/api/balites/?q=${queryBalites}`)
+        .then((res) => {
+          setBalites(res.data);
+          // setLoading(false);
+        })
+        .catch((err) => {
+          setErrors(err.response.data);
+          // setLoading(false);
+        });
+    } catch (error) {
+      console.error(error);
+    }
+  }, [errors, queryBalites]);
+  const { buyingadd } = useContext(AuthContex);
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const balitesWithMitrage = balites.map((baliteId) => ({
+    const balitesWithMitrage = wbalites.map((baliteId) => ({
       balite_id: baliteId,
       mitrage: mitrages[baliteId],
     }));
-    console.log(balitesWithMitrage)
+
     const totalPrice = balitesWithMitrage.reduce((total, item) => {
-      const balite = balites.filter((balite) => balite.id === item.balite_id);// Fetch the balite object using item.balite_id to get the prix_vendre;
-      return (total + (balite.prix_vendre * item.mitrage));
+      const balite = balites.find((balite) => balite.id === item.balite_id); // Fetch the balite object using item.balite_id to get the prix_vendre;
+      return total + balite.prix_vendre * parseFloat(item.mitrage);
     }, 0);
     const newBuying = {
       client_id: client,
       balites: balitesWithMitrage,
       ptotal: totalPrice,
     };
-
+    console.log(newBuying,5==='5',balites)
     try {
-      const response = await axios.post('/api/buying/create/', newBuying);
-      console.log(response);
-      // Reset form or show success message
+      console.log("p2");
+      client > 0 && totalPrice > 0
+      buyingadd(client, balitesWithMitrage, totalPrice);
     } catch (error) {
+      // Handle any errors that occur during the request
       console.error(error);
-      // Show error message
+      alert("An error occurred");
     }
   };
 
   return (
     <form onSubmit={handleSubmit}>
       <label htmlFor="client">Client:</label>
-      <select id="client" onChange={(e) => setwClient(e.target.value)}>
-        <option value="">select client</option>
-        {clients.map((client) => (
-          <option key={clients.id} value={client.id}>
-            {client.name} {client.prename}
-          </option>
+      <Select
+        value={client}
+        onChange={(e) => setwClient(e.value)}
+        options={clients.map((client) => ({
+          value: client.id,
+          label: `${client.name} ${client.prename}`,
+        }))}
+        isSearchable={true}
+        placeholder="Select a client"
+      />
+      <label>Balites:</label>
+      <input
+        type="search"
+        value={queryBalites}
+        onChange={handleSearchBalites}
+        placeholder="Search company"
+      />
+      <ul>
+        {balites.map((balite) => (
+          <li key={balite.id}>
+            <input
+              type="checkbox"
+              id={`balite-${balite.id}`}
+              value={balite.id}
+              onChange={(e) => {
+                if (e.target.checked) {
+                  setwBalites([...wbalites, balite.id]);
+                } else {
+                  setwBalites(wbalites.filter((id) => id !== balite.id));
+                }
+              }}
+            />
+            <label htmlFor={`balite-${balite.id}`}>{balite.name}</label>
+          </li>
         ))}
-      </select>
-
-      <label htmlFor="balites">Balites:</label>
-      <select
-        id="balites"
-        multiple
-        onChange={(e) =>
-          setwBalites(
-            Array.from(e.target.selectedOptions, (option) => option.value)
-          )
-        }
-      >
-        <option value="">select client</option>
-        {clients.map((client) => (
-          <option key={clients.id} value={client.id}>
-            {client.name} {client.prename}
-          </option>
-        ))}
-      </select>
+      </ul>
 
       {wbalites.map((baliteId) => (
         <div key={baliteId}>
@@ -165,6 +123,9 @@ const Invoice = () => {
           />
         </div>
       ))}
+      <div>
+        total pric: <span style={{ color: "red" }}>ok</span>
+      </div>
 
       <button type="submit">Create Buying</button>
     </form>

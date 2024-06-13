@@ -205,7 +205,6 @@ export const AuthProvider = ({ children }) => {
     }
   };
   const datteadd = async (prix, id) => {
-    console.log(id)
     const response = await fetch("http://127.0.0.1:8000/api/dattes/", {
       method: "POST",
       headers: {
@@ -276,15 +275,16 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const buyingadd = async (client, id) => {
-    const response = await fetch("http://127.0.0.1:8000/api/vers/", {
+  const buyingadd = async (client, balites, ptotal) => {
+    const response = await fetch("http://127.0.0.1:8000/api/balites/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
         client,
-        balit: id,
+        balites,
+        ptotal,
       }),
     });
     if (response.status === 201) {

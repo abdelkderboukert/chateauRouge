@@ -28,6 +28,9 @@ class Camany(models.Model):
     re_com =models.CharField(max_length=30)
     balites = models.ManyToManyField('Balite')
 
+    def __str__(self):
+        return f"{self.name} {self.place}"
+
 class Client(models.Model):
     name = models.CharField(max_length=30)
     prename = models.CharField(max_length=30)
@@ -38,6 +41,10 @@ class Client(models.Model):
     datte_set = models.Manager()
     objects = models.Manager()
 
+    def __str__(self):
+        return f"{self.name} {self.prename} {self.campany.name}"
+
+
 class Buying(models.Model):
     client = models.ForeignKey(Client, on_delete=models.CASCADE)
     balites = models.ManyToManyField('Balite')
@@ -47,12 +54,12 @@ class Buying(models.Model):
     def __str__(self):
         return f"Buying for {self.client.name}"
 
-    @property
-    def prix_t(self):
-        return sum(balite.prix_vendre for balite in self.balites.all())
+    # @property
+    # def prix_t(self):
+    #     return sum(balite.prix_vendre for balite in self.balites.all())
 
     def save(self, *args, **kwargs):
-        self.ptotal = self.prix_t
+        # self.ptotal = self.prix_t
         self.time = now().strftime("%Y-%m-%dT%H:%M:%S.000Z")
         super().save(*args, **kwargs)
       

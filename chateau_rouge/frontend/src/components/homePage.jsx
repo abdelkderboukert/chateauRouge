@@ -13,7 +13,6 @@ import Datteadd from "./datteadd";
 import Versadd from "./versadd";
 import Clientliste from "./clientliste";
 import Test2 from "./test2";
-import SearchBal from "./searchBal";
 import Invoice from "./invoice";
 
 export default function HomePage() {

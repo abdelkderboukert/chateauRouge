@@ -104,6 +104,7 @@
 // export default Test2;
 
 import React, { useState, useEffect } from "react";
+import Select from "react-select";
 import axios from "axios";
 
 const Test2 = () => {
@@ -167,7 +168,16 @@ const Test2 = () => {
           </option>
         ))}
       </select>
-
+      <Select
+        value={client}
+        onChange={(e) => setwClient(e.value)}
+        options={clients.map((client) => ({
+          value: client.id,
+          label: `${client.name} ${client.prename}`,
+        }))}
+        isSearchable={true}
+        placeholder="Select a client"
+      />
       <label>Balites:</label>
       <ul>
         {balites.map((balite) => (
