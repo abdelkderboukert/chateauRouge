@@ -1,14 +1,14 @@
 import React, { useState, useRef, useEffect } from "react";
 import Chartsclient from "./chartsclient";
 import axios from "axios";
-import CreateClent from "./createClent";
-import Company from "./company";
-import { motion } from "framer-motion";
+// import CreateClent from "./createClent";
+// import Company from "./company";
+// import { motion } from "framer-motion";
 
 const Clientliste = () => {
-  const [showTest2, setShowTest2] = useState(false);
-  const [showCreatClient, setShowCreatClient] = useState(false);
-  const [showCreatCompany, setShowCreatCompany] = useState(false);
+  // const [showTest2, setShowTest2] = useState(false);
+  // const [showCreatClient, setShowCreatClient] = useState(false);
+  // const [showCreatCompany, setShowCreatCompany] = useState(false);
   const [queryclient, setQueryClient] = useState("");
   const [querycompany, setQueryCompany] = useState("");
   const [companys, setCompany] = useState();
@@ -18,24 +18,24 @@ const Clientliste = () => {
   const [currentCompanyId, setCurrentCompanyId] = useState(0);
   const [currentClientId, setCurrentClientId] = useState(0);
   const statRef = useRef(false);
-  const statClientRef = useRef(false);
-  const statCompanytRef = useRef(false);
+  // const statClientRef = useRef(false);
+  // const statCompanytRef = useRef(false);
 
-  const handleRenderTest2 = () => {
-    setShowTest2((prevShowTest2) => !prevShowTest2);
-    statRef.current = !statRef.current;
-    console.log(statRef);
-  };
+  // const handleRenderTest2 = () => {
+  //   setShowTest2((prevShowTest2) => !prevShowTest2);
+  //   statRef.current = !statRef.current;
+  //   console.log(statRef);
+  // };
 
-  const addClient = () => {
-    setShowCreatClient((prevShowClient) => !prevShowClient);
-    statClientRef.current = !statClientRef.current;
-  };
+  // const addClient = () => {
+  //   setShowCreatClient((prevShowClient) => !prevShowClient);
+  //   statClientRef.current = !statClientRef.current;
+  // };
 
-  const addCompany = () => {
-    setShowCreatCompany((prevShowCompany) => !prevShowCompany);
-    statCompanytRef.current = !statCompanytRef.current;
-  };
+  // const addCompany = () => {
+  //   setShowCreatCompany((prevShowCompany) => !prevShowCompany);
+  //   statCompanytRef.current = !statCompanytRef.current;
+  // };
 
   const handleIdCompany = (idCompany) => {
     setCurrentCompanyId(idCompany);
@@ -101,6 +101,7 @@ const Clientliste = () => {
         style={{
           display: "flex",
           flexDirection: "row",
+          height: "100%",
         }}
         className="div-cont"
       >
@@ -116,23 +117,36 @@ const Clientliste = () => {
             value={querycompany}
             onChange={handleSearchCompany}
             placeholder="Search company"
+            style={{
+              height: "40px",
+              margin: "10px",
+              borderRadius: "5px",
+            }}
           />
-            {companys &&
-              companys.map((company) => (
-                <div key={company.id}>
-                  {company.id} {company.name} {company.place} {company.re_com}{" "}
-                  <button
-                    onClick={() => handleIdCompany(company.id)}
-                    style={{ background: "red" }}
-                  >
-                    click
-                  </button>
-                </div>
-              ))}
-          {statCompanytRef.current && <Company />}
+          {companys &&
+            companys.map((company) => (
+              <div
+                style={{
+                  background: "red",
+                  borderRadius: "5px",
+                  margin: "5px 10px",
+                  height: "45px",
+                }}
+                key={company.id}
+              >
+                {company.id} {company.name} {company.place} {company.re_com}
+                <button
+                  onClick={() => handleIdCompany(company.id)}
+                  style={{ background: "red" }}
+                >
+                  click
+                </button>
+              </div>
+            ))}
+          {/* {statCompanytRef.current && <Company />}
           <motion.button onClick={addCompany} layout>
             add client
-          </motion.button>
+          </motion.button> */}
         </div>
         {console.log(clients)}
         <div
@@ -147,12 +161,27 @@ const Clientliste = () => {
             value={queryclient}
             onChange={handleSearchClient}
             placeholder="Search client"
+            style={{
+              height: "40px",
+              margin: "10px",
+              borderRadius: "5px",
+            }}
           />
           {companys &&
             clients &&
             clients.map((client) => (
-              <div key={client.id}>
-                {client.id} {client.name} {client.prename}
+              <div
+                style={{
+                  background: "red",
+                  borderRadius: "5px",
+                  margin: "5px 10px",
+                  display: "flex",
+                  flexDirection: "row" ,
+                  height: "45px",
+                }}
+                key={client.id}
+              >
+                {client.id} {client.name} {client.prename} /
                 {companys &&
                   companys
                     .filter((company) => company.id === client.campany)
@@ -166,15 +195,14 @@ const Clientliste = () => {
                   click
                 </button>
               </div>
-            ))
-          }
-          {statClientRef.current && <CreateClent />}
+            ))}
+          {/* {statClientRef.current && <CreateClent />}
           <motion.button onClick={addClient} layout>
             add client
-          </motion.button>
+          </motion.button> */}
         </div>
       </div>
-      <button onClick={handleRenderTest2}>Render Test2</button>
+      {/* <button onClick={handleRenderTest2}>Render Test2</button> */}
     </div>
   );
 };

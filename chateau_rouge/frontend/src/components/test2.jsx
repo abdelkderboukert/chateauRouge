@@ -106,6 +106,7 @@
 import React, { useState, useEffect } from "react";
 import Select from "react-select";
 import axios from "axios";
+import {motion} from "framer-motion"
 
 const Test2 = () => {
   const [client, setwClient] = useState();
@@ -216,6 +217,19 @@ const Test2 = () => {
       ))}
 
       <button type="submit">Create Buying</button>
+      <motion.div
+        whileTap={{
+          cursor: "pointer",
+          "#secondDiv": {
+            backgroundColor: "red",
+          },
+        }}
+      >
+        First div
+      </motion.div>
+      <motion.div id="secondDiv">
+        Second div
+      </motion.div>
     </form>
   );
 };
