@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import Chartsclient from "./chartsclient";
 import axios from "axios";
+import { Link } from "react-router-dom";
 // import CreateClent from "./createClent";
 // import Company from "./company";
 import { motion } from "framer-motion";
@@ -95,6 +96,31 @@ const Clientliste = () => {
 
   return (
     <div>
+      {/* <div
+        style={{
+          height: 60,
+          width: "100%",
+          alignItems: "center",
+        }}
+      > */}
+      <motion.button
+        style={{
+          position: "fixed",
+          zIndex: 1,
+          margin: 20,
+          borderRadius: 15,
+          opacity: 0.2,
+          border: "none",
+          backgroundColor: "red",
+          color:"white"
+        }}
+        whileHover={{ scale: 1.1, opacity: 1 }}
+      >
+        <Link to="/home" className="nav-link">
+          <h2 className="text-white-50 mx-auto">home</h2>
+        </Link>
+      </motion.button>
+      {/* </div> */}
       <Chartsclient id={currentClientId} key={currentClientId} />
       {/*  */}
       <div
@@ -152,8 +178,10 @@ const Clientliste = () => {
                   onClick={() => handleIdCompany(company.id)}
                   style={{
                     background: "#1d6efd", // #bebebf
-                    position: "absolute",
-                    left: 550,
+                    // position: "absolute",
+                    // left: 550,
+                    marginLeft: "auto",
+                    float: "right",
                     border: "none",
                     height: 35,
                     width: 90,
@@ -177,8 +205,9 @@ const Clientliste = () => {
             display: "flex",
             flexDirection: "column",
             width: "50%",
-            // maxHeight:"200px",
+            // maxHeight:"300px",
             // overflowY: "scroll",
+            // overflowX: "visible"
           }}
         >
           <input
@@ -229,8 +258,10 @@ const Clientliste = () => {
                   id="vvv"
                   style={{
                     background: "#1d6efd", // #bebebf
-                    position: "absolute",
-                    right: 30,
+                    // position: "absolute",
+                    // right: 30,
+                    marginLeft: "auto",
+                    float: "right",
                     border: "none",
                     height: 35,
                     width: 90,
@@ -252,7 +283,9 @@ const Clientliste = () => {
                 alignItems: "center",
               }}
             >
-              <h1 style={{ color: "#F8F8Ff" }}>no company selected</h1>
+              <h1 style={{ color: "black", opacity: 0.1 }}>
+                no company selected
+              </h1>
             </div>
           )}
           {currentCompanyId && !clients[0] && (
@@ -268,7 +301,10 @@ const Clientliste = () => {
                 {companys
                   .filter((company) => company.id === currentCompanyId)
                   .map((company) => (
-                    <div key={company.id} style={{ color: "#F8F8Ff" }}>
+                    <div
+                      key={company.id}
+                      style={{ color: "black", opacity: 0.1 }}
+                    >
                       {company.name} desn't has client{" "}
                     </div>
                   ))}
