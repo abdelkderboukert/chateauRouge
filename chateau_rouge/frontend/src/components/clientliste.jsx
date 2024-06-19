@@ -199,7 +199,6 @@ const Clientliste = () => {
             add client
           </motion.button> */}
         </div>
-        {console.log(clients)}
         <div
           style={{
             display: "flex",
@@ -284,7 +283,7 @@ const Clientliste = () => {
               }}
             >
               <h1 style={{ color: "black", opacity: 0.1 }}>
-                no company selected
+                no company selected.
               </h1>
             </div>
           )}
@@ -305,7 +304,7 @@ const Clientliste = () => {
                       key={company.id}
                       style={{ color: "black", opacity: 0.1 }}
                     >
-                      {company.name} desn't has client{" "}
+                      {company.name} desn't has client.
                     </div>
                   ))}
               </h1>
