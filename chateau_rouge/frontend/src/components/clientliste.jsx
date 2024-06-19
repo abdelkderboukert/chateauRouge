@@ -112,7 +112,7 @@ const Clientliste = () => {
           opacity: 0.2,
           border: "none",
           backgroundColor: "red",
-          color:"white"
+          color: "white",
         }}
         whileHover={{ scale: 1.1, opacity: 1 }}
       >
@@ -131,14 +131,28 @@ const Clientliste = () => {
         }}
         className="div-cont"
       >
-        <div
+        <motion.div
           style={{
             display: "flex",
             flexDirection: "column",
             width: "50%",
           }}
+          variants={{
+            hideen: {
+              opacity: 0,
+            },
+            show: {
+              opacity: 1,
+              transition: {
+                staggerChildren: 2,
+                // duration: 5,
+              },
+            },
+          }}
+          initial="hideen"
+          animate="show"
         >
-          <input
+          <motion.input
             type="search"
             value={querycompany}
             onChange={handleSearchCompany}
@@ -151,6 +165,7 @@ const Clientliste = () => {
               boxShadow:
                 "0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19)",
             }}
+            variants={{ hideen: { opacity: 0 }, show: { opacity: 1 } }}
           />
           {companys &&
             companys.map((company) => (
@@ -170,6 +185,7 @@ const Clientliste = () => {
                     "0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19)",
                   scale: 1.02,
                 }}
+                variants={{ hideen: { opacity: 0 }, show: { opacity: 1 } }}
                 // className="d-flex justify-content-center"
                 key={company.id}
               >
@@ -198,8 +214,8 @@ const Clientliste = () => {
           <motion.button onClick={addCompany} layout>
             add client
           </motion.button> */}
-        </div>
-        <div
+        </motion.div>
+        <motion.div
           style={{
             display: "flex",
             flexDirection: "column",
@@ -208,8 +224,22 @@ const Clientliste = () => {
             // overflowY: "scroll",
             // overflowX: "visible"
           }}
+          variants={{
+            hideen: {
+              opacity: 0,
+            },
+            show: {
+              opacity: 1,
+              transition: {
+                staggerChildren: 0.25,
+                // duration: 5,
+              },
+            },
+          }}
+          initial="hideen"
+          animate="show"
         >
-          <input
+          <motion.input
             type="search"
             value={queryclient}
             onChange={handleSearchClient}
@@ -222,6 +252,7 @@ const Clientliste = () => {
               boxShadow:
                 "0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19)",
             }}
+            variants={{ hideen: { opacity: 0 }, show: { opacity: 1 } }}
           />
           {companys &&
             clients &&
@@ -237,6 +268,7 @@ const Clientliste = () => {
                   alignItems: "center",
                   height: "60px",
                 }}
+                variants={{ hideen: { opacity: 0 }, show: { opacity: 1 } }}
                 whileHover={{
                   scale: 1.02,
                   boxShadow:
@@ -314,7 +346,7 @@ const Clientliste = () => {
           <motion.button onClick={addClient} layout>
             add client
           </motion.button> */}
-        </div>
+        </motion.div>
       </div>
     </div>
   );
