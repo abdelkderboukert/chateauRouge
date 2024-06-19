@@ -7,45 +7,21 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 
 const Clientliste = () => {
-  // const [showTest2, setShowTest2] = useState(false);
-  // const [showCreatClient, setShowCreatClient] = useState(false);
-  // const [showCreatCompany, setShowCreatCompany] = useState(false);
   const [queryclient, setQueryClient] = useState("");
   const [querycompany, setQueryCompany] = useState("");
   const [companys, setCompany] = useState();
   const [clients, setClient] = useState();
   const [errors, setErrors] = useState({});
-  // const [loading, setLoading] = useState(true);
   const [currentCompanyId, setCurrentCompanyId] = useState(0);
   const [currentClientId, setCurrentClientId] = useState(0);
-  // const statRef = useRef(false);
-  // const statClientRef = useRef(false);
-  // const statCompanytRef = useRef(false);
 
-  // const handleRenderTest2 = () => {
-  //   setShowTest2((prevShowTest2) => !prevShowTest2);
-  //   statRef.current = !statRef.current;
-  //   console.log(statRef);
-  // };
-
-  // const addClient = () => {
-  //   setShowCreatClient((prevShowClient) => !prevShowClient);
-  //   statClientRef.current = !statClientRef.current;
-  // };
-
-  // const addCompany = () => {
-  //   setShowCreatCompany((prevShowCompany) => !prevShowCompany);
-  //   statCompanytRef.current = !statCompanytRef.current;
-  // };
 
   const handleIdCompany = (idCompany) => {
     setCurrentCompanyId(idCompany);
-    console.log(currentCompanyId);
   };
 
   const handleIdClient = (idClient) => {
     setCurrentClientId(idClient);
-    console.log(currentClientId);
   };
 
   const handleSearchClient = (event) => {
@@ -90,19 +66,8 @@ const Clientliste = () => {
     }
   }, [errors,currentCompanyId,queryclient]);
 
-  // if (loading) {
-  //   return <div>Loading...</div>;
-  // }
-
   return (
     <div>
-      {/* <div
-        style={{
-          height: 60,
-          width: "100%",
-          alignItems: "center",
-        }}
-      > */}
       <motion.button
         style={{
           position: "fixed",
@@ -120,9 +85,7 @@ const Clientliste = () => {
           <h2 className="text-white-50 mx-auto">home</h2>
         </Link>
       </motion.button>
-      {/* </div> */}
       <Chartsclient id={currentClientId} key={currentClientId} />
-      {/*  */}
       <div
         style={{
           display: "flex",
@@ -210,10 +173,6 @@ const Clientliste = () => {
                 </button>
               </motion.div>
             ))}
-          {/* {statCompanytRef.current && <Company />}
-          <motion.button onClick={addCompany} layout>
-            add client
-          </motion.button> */}
         </motion.div>
         <motion.div
           style={{
@@ -342,10 +301,6 @@ const Clientliste = () => {
               </h1>
             </div>
           )}
-          {/* {statClientRef.current && <CreateClent />}
-          <motion.button onClick={addClient} layout>
-            add client
-          </motion.button> */}
         </motion.div>
       </div>
     </div>

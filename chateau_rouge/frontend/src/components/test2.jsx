@@ -103,135 +103,38 @@
 
 // export default Test2;
 
-import React, { useState, useEffect } from "react";
-import Select from "react-select";
-import axios from "axios";
-import {motion} from "framer-motion"
+import React, { useState } from "react";
+import { motion } from "framer-motion";
 
-const Test2 = () => {
-  const [client, setwClient] = useState();
-  const [clients, setClient] = useState([]);
-  const [balites, setBalites] = useState([]);
-  const [wbalites, setwBalites] = useState([]); // store the selected balite IDs
-  const [mitrages, setMitrages] = useState({});
-  const [errors, setErrors] = useState({});
+function Test2() {
+  const [animate, setAnimate] = useState(false);
 
-  useEffect(() => {
-    axios
-      .get("http://127.0.0.1:8000/api/clients/")
-      .then((res) => setClient(res.data))
-      .catch((err) => setErrors(err.response.data));
-  }, [errors]);
+  const handleClick = () => {
+    setAnimate(true);
+  };
 
-  useEffect(() => {
-    axios
-      .get("http://127.0.0.1:8000/api/clients/")
-      .then((res) => setBalites(res.data))
-      .catch((err) => setErrors(err.response.data));
-  }, [errors]);
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const balitesWithMitrage = wbalites.map((baliteId) => ({
-      balite_id: baliteId,
-      mitrage: mitrages[baliteId],
-    }));
-    console.log(balitesWithMitrage)
-    console.log(balitesWithMitrage);
-    const totalPrice = balitesWithMitrage.reduce((total, item) => {
-      const balite = balites.filter((balite) => balite.id === item.balite_id); // Fetch the balite object using item.balite_id to get the prix_vendre;
-      return total + balite.prix_vendre * item.mitrage;
-    }, 0);
-    const newBuying = {
-      client_id: client,
-      balites: balitesWithMitrage,
-      ptotal: totalPrice,
-    };
-
-    try {
-      const response = await axios.post("/api/buying/create/", newBuying);
-      console.log(response);
-      // Reset form or show success message
-    } catch (error) {
-      console.error(error);
-      // Show error message
-    }
+  const divVariants = {
+    hidden: { opacity: 0, x: "100vw" },
+    visible: { opacity: 1, x: 0, transition: { duration: 2, ease: "easeInOut" } }
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label htmlFor="client">Client:</label>
-      <select id="client" onChange={(e) => setwClient(e.target.value)}>
-        <option value="">select client</option>
-        {clients.map((client) => (
-          <option key={client.id} value={client.id}>
-            {client.name} {client.prename}
-          </option>
-        ))}
-      </select>
-      <Select
-        value={client}
-        onChange={(e) => setwClient(e.value)}
-        options={clients.map((client) => ({
-          value: client.id,
-          label: `${client.name} ${client.prename}`,
-        }))}
-        isSearchable={true}
-        placeholder="Select a client"
-      />
-      <label>Balites:</label>
-      <ul>
-        {balites.map((balite) => (
-          <li key={balite.id}>
-            <input
-              type="checkbox"
-              id={`balite-${balite.id}`}
-              value={balite.id}
-              onChange={(e) => {
-                if (e.target.checked) {
-                  setwBalites([...wbalites, balite.id]);
-                } else {
-                  setwBalites(wbalites.filter((id) => id !== balite.id));
-                }
-              }}
-            />
-            <label htmlFor={`balite-${balite.id}`}>{balite.name}</label>
-          </li>
-        ))}
-      </ul>
-
-      {wbalites.map((baliteId) => (
-        <div key={baliteId}>
-          <label htmlFor={`mitrage-${baliteId}`}>
-            Mitrage for Balite {baliteId}:
-          </label>
-          <input
-            type="number"
-            id={`mitrage-${baliteId}`}
-            key={baliteId}
-            onChange={(e) =>
-              setMitrages({ ...mitrages, [baliteId]: e.target.value })
-            }
-          />
-        </div>
-      ))}
-
-      <button type="submit">Create Buying</button>
+    <div className="App">
+      <div>
+        <button onClick={handleClick}>Click me</button>
+      </div>
       <motion.div
-        whileTap={{
-          cursor: "pointer",
-          "#secondDiv": {
-            backgroundColor: "red",
-          },
-        }}
+        className="div2"
+        variants={divVariants}
+        initial="hidden"
+        animate={animate? "visible" : "hidden"}
       >
-        First div
+        <h1>Div 2</h1>
+        <p>This is Div 2 content.</p>
       </motion.div>
-      <motion.div id="secondDiv">
-        Second div
-      </motion.div>
-    </form>
+    </div>
   );
-};
+}
+
 
 export default Test2;
