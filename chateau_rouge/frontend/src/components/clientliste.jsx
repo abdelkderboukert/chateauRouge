@@ -107,7 +107,7 @@ const Clientliste = () => {
             show: {
               opacity: 1,
               transition: {
-                staggerChildren: 2,
+                staggerChildren: 20,
                 // duration: 5,
               },
             },
@@ -148,7 +148,14 @@ const Clientliste = () => {
                     "0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19)",
                   scale: 1.02,
                 }}
-                variants={{ hideen: { opacity: 0 }, show: { opacity: 1 } }}
+                variants={{
+                  hideen: { opacity: 0 },
+                  show: { opacity: 1 },
+                  transition: {
+                    // staggerChildren: 20,
+                    duration: 5,
+                  },
+                }}
                 // className="d-flex justify-content-center"
                 key={company.id}
               >
@@ -168,6 +175,7 @@ const Clientliste = () => {
                     boxShadow:
                       "0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19)",
                   }}
+                  className="ttt1"
                 >
                   click
                 </button>
@@ -197,6 +205,7 @@ const Clientliste = () => {
           }}
           initial="hideen"
           animate="show"
+          className="ttt2"
         >
           <motion.input
             type="search"
