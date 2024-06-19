@@ -3,7 +3,7 @@ import Chartsclient from "./chartsclient";
 import axios from "axios";
 // import CreateClent from "./createClent";
 // import Company from "./company";
-// import { motion } from "framer-motion";
+import { motion } from "framer-motion";
 
 const Clientliste = () => {
   // const [showTest2, setShowTest2] = useState(false);
@@ -17,7 +17,7 @@ const Clientliste = () => {
   // const [loading, setLoading] = useState(true);
   const [currentCompanyId, setCurrentCompanyId] = useState(0);
   const [currentClientId, setCurrentClientId] = useState(0);
-  const statRef = useRef(false);
+  // const statRef = useRef(false);
   // const statClientRef = useRef(false);
   // const statCompanytRef = useRef(false);
 
@@ -121,27 +121,50 @@ const Clientliste = () => {
               height: "40px",
               margin: "10px",
               borderRadius: "5px",
+              padding: 10,
+              boxShadow:
+                "0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19)",
             }}
           />
           {companys &&
             companys.map((company) => (
-              <div
+              <motion.div
                 style={{
-                  background: "red",
-                  borderRadius: "5px",
+                  background: "#F0F8Ff", // #bebeff
+                  borderRadius: "15px",
                   margin: "5px 10px",
-                  height: "45px",
+                  display: "flex",
+                  flexDirection: "row",
+                  padding: 10,
+                  alignItems: "center",
+                  height: "60px",
                 }}
+                whileHover={{
+                  boxShadow:
+                    "0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19)",
+                  scale: 1.02,
+                }}
+                // className="d-flex justify-content-center"
                 key={company.id}
               >
                 {company.id} {company.name} {company.place} {company.re_com}
                 <button
                   onClick={() => handleIdCompany(company.id)}
-                  style={{ background: "red" }}
+                  style={{
+                    background: "#1d6efd", // #bebebf
+                    position: "absolute",
+                    left: 550,
+                    border: "none",
+                    height: 35,
+                    width: 90,
+                    borderRadius: 5,
+                    boxShadow:
+                      "0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19)",
+                  }}
                 >
                   click
                 </button>
-              </div>
+              </motion.div>
             ))}
           {/* {statCompanytRef.current && <Company />}
           <motion.button onClick={addCompany} layout>
@@ -154,6 +177,8 @@ const Clientliste = () => {
             display: "flex",
             flexDirection: "column",
             width: "50%",
+            // maxHeight:"200px",
+            // overflowY: "scroll",
           }}
         >
           <input
@@ -165,20 +190,31 @@ const Clientliste = () => {
               height: "40px",
               margin: "10px",
               borderRadius: "5px",
+              padding: 10,
+              boxShadow:
+                "0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19)",
             }}
           />
           {companys &&
             clients &&
             clients.map((client) => (
-              <div
+              <motion.div
                 style={{
-                  background: "red",
-                  borderRadius: "5px",
+                  background: "#F0F8Ff", // #bebeff
+                  borderRadius: "15px",
                   margin: "5px 10px",
                   display: "flex",
-                  flexDirection: "row" ,
-                  height: "45px",
+                  flexDirection: "row",
+                  padding: 10,
+                  alignItems: "center",
+                  height: "60px",
                 }}
+                whileHover={{
+                  scale: 1.02,
+                  boxShadow:
+                    "0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19)",
+                }}
+                // className="d-flex justify-content-center"
                 key={client.id}
               >
                 {client.id} {client.name} {client.prename} /
@@ -190,19 +226,61 @@ const Clientliste = () => {
                     ))}
                 <button
                   onClick={() => handleIdClient(client.id)}
-                  style={{ background: "green" }}
+                  id="vvv"
+                  style={{
+                    background: "#1d6efd", // #bebebf
+                    position: "absolute",
+                    right: 30,
+                    border: "none",
+                    height: 35,
+                    width: 90,
+                    borderRadius: 5,
+                    boxShadow:
+                      "0 8px 10px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19)",
+                  }}
                 >
                   click
                 </button>
-              </div>
+              </motion.div>
             ))}
+          {!currentCompanyId && (
+            <div
+              className="d-flex justify-content-center"
+              style={{
+                width: "100%",
+                height: 300,
+                alignItems: "center",
+              }}
+            >
+              <h1 style={{ color: "#F8F8Ff" }}>no company selected</h1>
+            </div>
+          )}
+          {currentCompanyId && !clients[0] && (
+            <div
+              className="d-flex justify-content-center"
+              style={{
+                width: "100%",
+                height: 300,
+                alignItems: "center",
+              }}
+            >
+              <h1>
+                {companys
+                  .filter((company) => company.id === currentCompanyId)
+                  .map((company) => (
+                    <div key={company.id} style={{ color: "#F8F8Ff" }}>
+                      {company.name} desn't has client{" "}
+                    </div>
+                  ))}
+              </h1>
+            </div>
+          )}
           {/* {statClientRef.current && <CreateClent />}
           <motion.button onClick={addClient} layout>
             add client
           </motion.button> */}
         </div>
       </div>
-      {/* <button onClick={handleRenderTest2}>Render Test2</button> */}
     </div>
   );
 };
