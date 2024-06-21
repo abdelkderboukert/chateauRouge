@@ -103,10 +103,10 @@
 
 // export default Test2;
 
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Chartsclient from "./chartsclient";
+import { NavBar } from "./navbar";
 import axios from "axios";
-import { Link } from "react-router-dom";
 // import CreateClent from "./createClent";
 // import Company from "./company";
 import { motion } from "framer-motion";
@@ -172,24 +172,8 @@ const Test2 = () => {
   }, [errors,currentCompanyId,queryclient]);
 
   return (
-    <div style={{ backgroundColor: "#0e0e11" }}>
-      <motion.button
-        style={{
-          position: "fixed",
-          zIndex: 1,
-          margin: 20,
-          borderRadius: 15,
-          opacity: 0.2,
-          border: "none",
-          backgroundColor: "red",
-          color: "white",
-        }}
-        whileHover={{ scale: 1.1, opacity: 1 }}
-      >
-        <Link to="/home" className="nav-link">
-          <h2 className="text-white-50 mx-auto">home</h2>
-        </Link>
-      </motion.button>
+    <div className="dd">
+      <NavBar/>
       <Chartsclient id={currentClientId} key={currentClientId} />
       <div
         style={{
@@ -229,17 +213,19 @@ const Test2 = () => {
               height: "40px",
               margin: "10px",
               borderRadius: "5px",
+              border: "3px black",
               padding: 10,
               boxShadow:
                 "0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19)",
             }}
             variants={{ hideen: { opacity: 0 }, show: { opacity: 1 } }}
+            whileFocus={{scale:1.1,}}
           />
           {companys &&
             companys.map((company) => (
               <motion.div
                 style={{
-                  background: "#08c138", // #bebeff
+                  background: "#325d4b", // #bebeff#08c138
                   borderRadius: "15px",
                   margin: "5px 10px",
                   display: "flex",
@@ -247,6 +233,9 @@ const Test2 = () => {
                   padding: 10,
                   alignItems: "center",
                   height: "60px",
+                  fontSize: 25,
+                  fontFamily: "Inter, sans-serif",
+                  color: "#bbf7d0",
                 }}
                 whileHover={{
                   boxShadow:
@@ -268,7 +257,7 @@ const Test2 = () => {
                 <button
                   onClick={() => handleIdCompany(company.id)}
                   style={{
-                    background: "#cffcd2", // #026320
+                    background: "#026320", // #026320#cffcd2
                     // position: "absolute",
                     // left: 550,
                     marginLeft: "auto",
@@ -310,7 +299,7 @@ const Test2 = () => {
           }}
           initial="hideen"
           animate="show"
-          className="ttt2"
+          className="d-flex justify-content-center"
         >
           <motion.input
             type="search"
@@ -332,7 +321,7 @@ const Test2 = () => {
             clients.map((client) => (
               <motion.div
                 style={{
-                  background: "#08c138", // #bebeff
+                  background: "#325d4b", // #bebeff#08c138
                   borderRadius: "15px",
                   margin: "5px 10px",
                   display: "flex",
@@ -340,10 +329,15 @@ const Test2 = () => {
                   padding: 10,
                   alignItems: "center",
                   height: "60px",
+                  fontFamily: "Inter, sans-serif",
+                  fontSize: 25,
+                  color: "#bbf7d0",
                 }}
                 variants={{ hideen: { opacity: 0 }, show: { opacity: 1 } }}
                 whileHover={{
                   scale: 1.02,
+                  // height: 200,
+                  alignItems: "flex-start",
                   boxShadow:
                     "0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19)",
                 }}
@@ -355,7 +349,16 @@ const Test2 = () => {
                   companys
                     .filter((company) => company.id === client.campany)
                     .map((company) => (
-                      <div key={company.id}>{company.name}</div>
+                      <div
+                        key={company.id}
+                        style={{
+                          color: "",
+                          fontFamily: "Inter, sans-serif",
+                          fontSize: 25,
+                        }}
+                      >
+                        {company.name}
+                      </div>
                     ))}
                 <button
                   onClick={() => handleIdClient(client.id)}
@@ -385,9 +388,10 @@ const Test2 = () => {
                 width: "100%",
                 height: 300,
                 alignItems: "center",
+                color: "#325d4b",
               }}
             >
-              <h1 style={{ color: "black", opacity: 0.1 }}>
+              <h1 style={{ color: "#325d4b", opacity: 0.1, fontSize:45 }}>
                 no company selected.
               </h1>
             </div>
@@ -399,6 +403,7 @@ const Test2 = () => {
                 width: "100%",
                 height: 300,
                 alignItems: "center",
+                color: "#325d4b",
               }}
             >
               <h1>
@@ -407,7 +412,11 @@ const Test2 = () => {
                   .map((company) => (
                     <div
                       key={company.id}
-                      style={{ color: "black", opacity: 0.1 }}
+                      style={{
+                        color: "#325d4b",
+                        opacity: 0.1,
+                        fontSize:45,
+                      }}
                     >
                       {company.name} desn't has client.
                     </div>

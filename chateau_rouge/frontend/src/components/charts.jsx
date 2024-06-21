@@ -34,7 +34,6 @@ const Charts = (props) => {
         title: {
           display: true,
           text: props.title,
-          fontcolor: "red",
         },
       },
     }),
@@ -43,12 +42,16 @@ const Charts = (props) => {
   const id = props.id;
   return (
     <>
-      <div id={`chart-${id}`}
-      style={{
-        background:"#F0F8FF",
-        borderRadius :"20px",
-        margin : "5px"
-        }}>
+      <div
+        id={`chart-${id}`}
+        style={{
+          //background: "#b4febe",
+          //background: "#F0F8FF",
+          background: "#ffffff",
+          borderRadius: "20px",
+          margin: "5px",
+        }}
+      >
         <Chart
           options={state.options}
           series={state.series}

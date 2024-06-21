@@ -15,7 +15,6 @@ import Clientliste from "./clientliste";
 import Test2 from "./test2";
 import Invoice from "./invoice";
 import Balitesadd from "./balitesadd";
-
 export default function HomePage() {
   return (
     <Router>
