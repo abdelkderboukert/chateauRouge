@@ -29,17 +29,25 @@ const Test = () => {
         <div className="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center">
           <div className="d-flex justify-content-center">
             <div className="text-center">
-              <h1 className="mx-auto my-0 text-uppercase" id="tit">
+              <h1
+                className="mx-auto my-0 text-uppercase"
+                style={{ fontSize: "10rem" }}
+                id="tit"
+              >
                 ALG ON
               </h1>
-              <h2 className="text-white-50 mx-auto mt-2 mb-5">
+              <h2
+                className="text-white-50 mx-auto "
+                style={{
+                  fontSize: "1.5rem",
+                }}
+              >
                 The site will offer a user-friendly interface where candidates
                 will be able to download their cv.
               </h2>
-                <a className="btn btn-primary" href="#login">
-                  Get Started
-                </a>
-              
+              <a className="btn btn-primary" href="#login">
+                Get Started
+              </a>
             </div>
           </div>
         </div>
@@ -47,10 +55,10 @@ const Test = () => {
       <section className="log-section" id="login">
         <div className="#" id="container">
           <div className="div-login_regist" id="text">
-            <h5 id="tit" style={{ fontWeight: "bold" }}>
+            <h5 id="tit" style={{ fontWeight: "bold", fontSize: "1rem" }}>
               JOIN FOR FREE
             </h5>
-            <h1 style={{ fontWeight: "bold" }}>
+            <h1 style={{ fontWeight: "bold", fontSize: "3rem" }}>
               We offer the opportunity to
               <span className="highlight">DEVELOP YOURSELF</span>, You are in
               safe hands
@@ -61,11 +69,15 @@ const Test = () => {
           </div>
           <div className="div-login_regist" id="regis">
             <div className="login_regist" id="log">
-              <h1 style={{ fontWeight: "bold" }}>Welcome</h1>
-              <h1 style={{ fontWeight: "bold" }}>
+              <h1 style={{ fontWeight: "bold", fontSize: "3rem" }}>Welcome</h1>
+              <h1 style={{ fontWeight: "bold", fontSize: "3rem" }}>
                 Back to our website<span className="highlight">.</span>
               </h1>
-              <form onSubmit={handleSubmit} method="post">
+              <form
+                onSubmit={handleSubmit}
+                method="post"
+                style={{ fontSize: "1.3rem" }}
+              >
                 <input
                   type="text"
                   name="username"

@@ -173,7 +173,7 @@ const Test2 = () => {
 
   return (
     <div className="dd">
-      <NavBar/>
+      <NavBar />
       <Chartsclient id={currentClientId} key={currentClientId} />
       <div
         style={{
@@ -219,7 +219,7 @@ const Test2 = () => {
                 "0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19)",
             }}
             variants={{ hideen: { opacity: 0 }, show: { opacity: 1 } }}
-            whileFocus={{scale:1.1,}}
+            whileFocus={{ scale: 1.1 }}
           />
           {companys &&
             companys.map((company) => (
@@ -391,7 +391,14 @@ const Test2 = () => {
                 color: "#325d4b",
               }}
             >
-              <h1 style={{ color: "#325d4b", opacity: 0.1, fontSize:45 }}>
+              <h1
+                style={{
+                  color: "#325d4b",
+                  opacity: 0.1,
+                  fontWeight: "bold",
+                  fontSize: "3rem",
+                }}
+              >
                 no company selected.
               </h1>
             </div>
@@ -415,7 +422,8 @@ const Test2 = () => {
                       style={{
                         color: "#325d4b",
                         opacity: 0.1,
-                        fontSize:45,
+                        fontWeight: "bold",
+                        fontSize: "3rem",
                       }}
                     >
                       {company.name} desn't has client.

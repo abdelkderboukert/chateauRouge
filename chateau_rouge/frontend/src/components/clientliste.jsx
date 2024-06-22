@@ -282,7 +282,9 @@ const Clientliste = () => {
                 alignItems: "center",
               }}
             >
-              <h1 style={{ color: "black", opacity: 0.1 }}>
+              <h1
+                style={{ color: "black", fontWeight: "bold", fontSize: "3rem", opacity:0.1 }}
+              >
                 no company selected.
               </h1>
             </div>
@@ -302,7 +304,12 @@ const Clientliste = () => {
                   .map((company) => (
                     <div
                       key={company.id}
-                      style={{ color: "black", opacity: 0.1 }}
+                      style={{
+                        color: "black",
+                        fontWeight: "bold",
+                        fontSize: "3rem",
+                        opacity:0.1
+                      }}
                     >
                       {company.name} desn't has client.
                     </div>
