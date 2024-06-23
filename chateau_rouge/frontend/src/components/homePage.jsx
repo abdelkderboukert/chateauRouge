@@ -2,7 +2,7 @@ import React from "react";
 import { BrowserRouter as Router } from "react-router-dom";
 import { Routes, Route } from "react-router-dom";
 import Register from "./register";
-import Test from "./login";
+import {Test} from "./test";
 import Home from "./home";
 
 import PrivateRoute from "../utils/PrivateRoute";
@@ -15,12 +15,13 @@ import Clientliste from "./clientliste";
 import Test2 from "./test2";
 import Invoice from "./invoice";
 import Balitesadd from "./balitesadd";
+import LogIn from "./login";
 export default function HomePage() {
   return (
     <Router>
       <AuthProvider>
         <Routes>
-          <Route exact path="/login" element={<Test />} />
+          <Route exact path="/login" element={<LogIn />} />
           <Route exact path="/register" element={<Register />} />
           <Route
             path="/home"
@@ -88,7 +89,8 @@ export default function HomePage() {
           />
           <Route path="/cherts" element={<Clientliste />} />
           <Route path="/test2" element={<Test2 />} />
-          <Route path="/" element={<Test />} />
+          <Route path="/test" element={<Test />} />
+          <Route path="/" element={<LogIn />} />
           <Route path="/companycreate" element={<Company />} />
           <Route path="/balit" element={<Balitesadd />} />
         </Routes>

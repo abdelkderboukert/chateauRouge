@@ -2,7 +2,7 @@ import { useContext, useState } from "react";
 import "../static/css/test.css";
 import AuthContext from "../context/AuthContext";
 
-const Test = () => {
+const LogIn = () => {
   const [user, setUser] = useState({
     username: "",
     password: "",
@@ -127,4 +127,4 @@ const Test = () => {
   );
 };
 
-export default Test;
+export default LogIn;

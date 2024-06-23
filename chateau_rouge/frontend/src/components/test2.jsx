@@ -172,7 +172,12 @@ const Test2 = () => {
   }, [errors,currentCompanyId,queryclient]);
 
   return (
-    <div className="dd">
+    <div
+      /*className="dd"*/ style={{
+        minHeight: "100vh",
+        backgroundColor: "#0e0e11",
+      }}
+    >
       <NavBar />
       <Chartsclient id={currentClientId} key={currentClientId} />
       <div
@@ -219,7 +224,6 @@ const Test2 = () => {
                 "0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19)",
             }}
             variants={{ hideen: { opacity: 0 }, show: { opacity: 1 } }}
-            whileFocus={{ scale: 1.1 }}
           />
           {companys &&
             companys.map((company) => (
@@ -311,6 +315,7 @@ const Test2 = () => {
               margin: "10px",
               borderRadius: "5px",
               padding: 10,
+              justifySelf: "flex-start",
               boxShadow:
                 "0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19)",
             }}

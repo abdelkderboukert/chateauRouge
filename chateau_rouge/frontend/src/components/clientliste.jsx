@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Chartsclient from "./chartsclient";
 import axios from "axios";
 import { Link } from "react-router-dom";
