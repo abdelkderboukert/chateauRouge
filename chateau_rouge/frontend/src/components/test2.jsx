@@ -119,6 +119,7 @@ const Test2 = () => {
   const [errors, setErrors] = useState({});
   const [currentCompanyId, setCurrentCompanyId] = useState(0);
   const [currentClientId, setCurrentClientId] = useState(0);
+  const [position, setPosition] = useState({top: 0,opacity: 0});
 
 
   const handleIdCompany = (idCompany) => {
