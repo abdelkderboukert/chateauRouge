@@ -1,108 +1,3 @@
-// import React, {useState} from 'react';
-// import { motion } from "framer-motion";
-
-// const Test2 = () => {
-//     const [stat, setStat] = useState(false);
-//     const [balit, setBalit] = useState([])
-    
-//     return (
-//       <div
-//         style={{
-//           display: "grid",
-//           placeContent: "center",
-//           height: "100vh",
-//           gap: "0.8rem",
-//           background: "black",
-//         }}
-//       >
-//         <motion.div
-//           onClick={() => 
-//             {setStat(!stat)
-//               setBalit(balit=>[...balit, {id:1,name:"moh"}])
-//               console.log(balit)
-//             }
-//           }
-//           layout
-//           style={{
-//             borderRadius: "10px",
-//             backgroundColor: "#f4f4f4f4",
-//             height: "50px",
-//             width: "250px",
-//             marginBottom: "20px",
-//             color: "#ffff",
-//           }}
-//           whileHover={{
-//             rotate: "-2.5deg",
-//             scale: 1.05,
-//             opacity: 0.1,
-//           }}
-//         >
-//           <motion.span 
-//           style={{ 
-//             opacity: 1,
-//           }}
-//           whileHover={{
-//             opacity: 1,
-//           }}
-//            >
-//             click me
-//           </motion.span>
-//         </motion.div>
-//         {stat && (
-//           <motion.div
-//             style={{
-//               height: 0,
-//               width: 0,
-//               background: "green",
-//             }}
-//             initial={{
-//               height: 0,
-//               width: 0,
-//               rotate: "0deg",
-//             }}
-//             animate={{
-//               height: 250,
-//               width: 250,
-//               rotate: "180deg",
-//               borderRadius: "30px",
-//             }}
-//             exit={{
-//               height: 0,
-//               width: 0,
-//               rotate: "0deg",
-//             }}
-//             variants={{}}
-//             transition={{
-//               duration: 0.5,
-//             }}
-//           ></motion.div>
-//         )}
-//         {/* <motion.div
-//           style={{
-//             height: 150,
-//             width: 150,
-//             background: "black",
-//           }}
-//           initial={{
-//             rotate: "0deg",
-//           }}
-//           animate={{
-//             rotate: "180deg",
-//           }}
-//           exit={{
-//             rotate: "0deg",
-//           }}
-//           variants={{}}
-//           transition={{
-//             duration:1
-//           }}
-//         ></motion.div> */}
-//       </div>
-//     );
-// }
-
-// export default Test2;
-
 import React, { useState, useEffect } from "react";
 import Chartsclient from "./chartsclient";
 import { NavBar } from "./navbar";
@@ -119,8 +14,6 @@ const Test2 = () => {
   const [errors, setErrors] = useState({});
   const [currentCompanyId, setCurrentCompanyId] = useState(0);
   const [currentClientId, setCurrentClientId] = useState(0);
-  const [position, setPosition] = useState({top: 0,opacity: 0});
-
 
   const handleIdCompany = (idCompany) => {
     setCurrentCompanyId(idCompany);
@@ -174,9 +67,10 @@ const Test2 = () => {
 
   return (
     <div
-      /*className="dd"*/ style={{
+      className="dd"
+      style={{
         minHeight: "100vh",
-        backgroundColor: "#0e0e11",
+        // backgroundColor: "#0e0e11",
       }}
     >
       <NavBar />
@@ -192,9 +86,11 @@ const Test2 = () => {
         <motion.div
           style={{
             display: "flex",
+            position: "",
             flexDirection: "column",
             width: "50%",
           }}
+          className="relative " /***************************************************************** */
           variants={{
             hideen: {
               opacity: 0,
@@ -227,7 +123,7 @@ const Test2 = () => {
             variants={{ hideen: { opacity: 0 }, show: { opacity: 1 } }}
           />
           {companys &&
-            companys.map((company) => (
+            companys.map((company, index) => (
               <motion.div
                 style={{
                   background: "#325d4b", // #bebeff#08c138
@@ -256,7 +152,7 @@ const Test2 = () => {
                   },
                 }}
                 // className="d-flex justify-content-center"
-                key={company.id}
+                key={index}
               >
                 {company.id} {company.name} {company.place} {company.re_com}
                 <button
@@ -304,7 +200,7 @@ const Test2 = () => {
           }}
           initial="hideen"
           animate="show"
-          className="d-flex justify-content-center"
+          className="relative d-flex justify-content-center"
         >
           <motion.input
             type="search"
@@ -324,7 +220,7 @@ const Test2 = () => {
           />
           {companys &&
             clients &&
-            clients.map((client) => (
+            clients.map((client, index) => (
               <motion.div
                 style={{
                   background: "#325d4b", // #bebeff#08c138
@@ -348,7 +244,7 @@ const Test2 = () => {
                     "0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19)",
                 }}
                 // className="d-flex justify-content-center"
-                key={client.id}
+                key={index}
               >
                 {client.id} {client.name} {client.prename} /
                 {companys &&

@@ -2,7 +2,7 @@ import React from "react";
 import { BrowserRouter as Router } from "react-router-dom";
 import { Routes, Route } from "react-router-dom";
 import Register from "./register";
-import {Test} from "./test";
+import Test from "./test";
 import Home from "./home";
 
 import PrivateRoute from "../utils/PrivateRoute";
