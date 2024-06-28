@@ -187,9 +187,9 @@ const FlipLink = ({ children}) => {
     <motion.div
       initial="initial"
       whileHover="hovered"
-      className="relative block overflow-hidden whitespace-nowrap text-4xl font-black uppercase sm:text-7xl md:text-8xl lg:text-9xl m-4"
+      className="relative block overflow-hidden whitespace-nowrap text-4xl font-black uppercase sm:text-7xl md:text-8xl lg:text-9xl m-2"
       style={{
-        lineHeight: 0.75,
+        lineHeight: 1,
       }}
     >
       <div className="">
