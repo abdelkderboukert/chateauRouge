@@ -5,7 +5,7 @@ import Select from "react-select";
 import { NavBar } from "./navbar";
 import { motion } from "framer-motion";
 
-const Test2 = () => {
+const CreateClent = () => {
   const [selectedCompany, setSelectedCompany] = useState({
     id: "",
     name: "",
@@ -176,7 +176,7 @@ const Test2 = () => {
   );
 };
 
-export default Test2;
+export default CreateClent;
 
 const DURATION = 0.25;
 const STAGGER = 0.025;

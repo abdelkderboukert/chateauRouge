@@ -1,4 +1,4 @@
-import  React, { useContext, useState, useEffect } from "react";
+import { useContext, useState, useEffect } from "react";
 import AuthContex from "../context/AuthContext";
 import axios from "axios";
 import Select from "react-select";
@@ -6,45 +6,36 @@ import { NavBar } from "./navbar";
 import { motion } from "framer-motion";
 
 const Test2 = () => {
-  const [selectedCompany, setSelectedCompany] = useState({
-    id: "",
-    name: "",
-    place: "",
-    re_com: "",
+  const [selectedClient, setSelectedClient] = useState({
+    prix: 0,
+    client: 0,
   });
-  const [client, setClient] = useState({
-    name: "",
-    prename: "",
-    camany: {
-      id: "",
-      name: "",
-      place: "",
-      re_com: "",
-    },
-  });
-  const { clientadd } = useContext(AuthContex);
+  const { datteadd } = useContext(AuthContex);
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log(client);
+    console.log(dattes);
     try {
       console.log("p2");
-      client.camany.id.length > 0 &&
-        client.name.length > 0 &&
-        console.log("p1");
-      clientadd(client.name, client.prename, client.camany);
+      dattes.prix.length > 0 && dattes.client.length > 0 && console.log("p1");
+      datteadd(dattes.prix, dattes.client);
     } catch (error) {
       // Handle any errors that occur during the request
       console.error(error);
       alert("An error occurred");
     }
   };
-  const [companys, setCompany] = useState([]);
+  const [clients, setClient] = useState([]);
+  const [dattes, setDettes] = useState({
+    id: "",
+    prix: 0,
+    client: 0,
+  });
   const [errors, setErrors] = useState({});
 
   useEffect(() => {
     axios
-      .get("http://127.0.0.1:8000/api/camanies/")
-      .then((res) => setCompany(res.data))
+      .get("http://127.0.0.1:8000/api/clients/")
+      .then((res) => setClient(res.data))
       .catch((err) => setErrors(err.response.data));
   }, [errors]);
   return (
@@ -60,7 +51,7 @@ const Test2 = () => {
         className="flex justify-center w-full items-center bg-black"
         onSubmit={handleSubmit}
       >
-        <FlipLink>createnewclient</FlipLink>
+        <FlipLink>add_datte</FlipLink>
         <div className=" relative h-96 min-w-[277px] w-[40%] bg-[#effef7] rounded-[15px]">
           {/* #fafaf9 */}
           <div
@@ -71,11 +62,11 @@ const Test2 = () => {
               padding: 10,
             }}
           >
-            <label htmlFor="name">name:</label>
+            <label htmlFor="name">prix:</label>
             <input
               type="text"
-              name="name"
-              placeholder="name"
+              name="prix"
+              placeholder="prix"
               style={{
                 margin: "10px 0 10px 0",
                 height: 50,
@@ -83,25 +74,10 @@ const Test2 = () => {
                 // #fafaf9
               }}
               onChange={(e) => {
-                setClient({ ...client, [e.target.name]: e.target.value });
+                setDettes({ ...dattes, [e.target.name]: e.target.value });
               }}
             />
-            <label htmlFor="prename">prename:</label>
-            <input
-              type="text"
-              name="prename"
-              placeholder="prename"
-              style={{
-                margin: "10px 0 10px 0",
-                height: 50,
-                backgroundColor: "#effef7",
-                // #fafaf9
-              }}
-              onChange={(e) => {
-                setClient({ ...client, [e.target.name]: e.target.value });
-              }}
-            />
-            <label htmlFor="">company:</label>
+            <label htmlFor="name">Client:</label>
             <Select
               styles={{
                 control: (styles) => ({
@@ -119,28 +95,25 @@ const Test2 = () => {
                   // #fafaf9
                 }),
               }}
-              value={selectedCompany ? selectedCompany.id : ""}
-              onChange={(selectedOption) => {
-                const selectedCompany = companys.find(
-                  (company) => company.id === selectedOption.value
+              value={selectedClient ? selectedClient.id : ""}
+              onChange={(option) => {
+                const clientIdv = option ? option.value : null;
+                const clientId = clientIdv ? parseInt(option.value, 10) : null;
+                const selectedClient = clients.find(
+                  (client) => client.id === clientId
                 );
-                console.log(selectedCompany);
-                setClient({ ...client, camany: selectedCompany });
-                setSelectedCompany(selectedCompany);
+                console.log(selectedClient);
+                setDettes({ ...dattes, client: selectedClient.id });
+                console.log(selectedClient.id);
+                setSelectedClient(selectedClient);
               }}
-              options={companys.map((company) => ({
-                value: company.id,
-                label: `${company.name}`,
+              options={clients.map((client) => ({
+                value: client.id,
+                label: `${client.name} ${client.prename}`,
               }))}
               isSearchable={true}
-              placeholder="Select a company"
+              placeholder="Select a client"
             />
-            {selectedCompany && (
-              <div className="absolute flex justify-center items-center left-[40%] bottom-[0px] h-14 w-[60%] p-3">
-                {" "}
-                <h1> Selected company: {selectedCompany.name}</h1>
-              </div>
-            )}
           </div>
           <div
             className=" absolute bg-transparent rounded-bl-[15px]"
@@ -167,7 +140,7 @@ const Test2 = () => {
               style={{ height: 41, width: "calc( 100% - 15px )" }}
               type="submit"
             >
-              <h3 style={{ fontWeight: "bold" }}>Sing up</h3>
+              <h3 style={{ fontWeight: "bold" }}>Submit</h3>
             </button>
           </div>
         </div>
@@ -178,16 +151,15 @@ const Test2 = () => {
 
 export default Test2;
 
-
 const DURATION = 0.25;
 const STAGGER = 0.025;
 
-const FlipLink = ({ children}) => {
+const FlipLink = ({ children }) => {
   return (
     <motion.div
       initial="initial"
       whileHover="hovered"
-      className="relative block overflow-hidden whitespace-nowrap text-4xl font-black uppercase sm:text-7xl md:text-8xl lg:text-9xl m-2"
+      className="relative block overflow-hidden whitespace-nowrap text-4xl font-black uppercase sm:text-7xl md:text-8xl lg:text-[115px] m-2"
       style={{
         lineHeight: 1,
       }}
