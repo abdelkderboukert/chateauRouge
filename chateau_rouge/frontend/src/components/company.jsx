@@ -31,7 +31,16 @@ const Company = () => {
       style={{ height: "100vh" }}
     >
       <NavBar />
-
+      <div
+        id="searchBar"
+        // className="dd"
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          height: 65,
+          width: "100%",
+        }}
+      ></div>
       <form
         action="post"
         className="flex justify-center w-full items-center bg-black"

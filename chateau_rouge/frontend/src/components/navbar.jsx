@@ -21,7 +21,7 @@ export const NavBar = () => {
       >
         <SlideTabs />
       </div>
-      <div
+      {/* <div
         id="searchBar"
         // className="dd"
         style={{
@@ -30,7 +30,7 @@ export const NavBar = () => {
           height: 65,
           width: "100%",
         }}
-      ></div>
+      ></div> */}
     </>
   );
 };
