@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Chartsclient from "./chartsclient";
+import { NavBar } from "./navbar";
 import axios from "axios";
-import { Link } from "react-router-dom";
 // import CreateClent from "./createClent";
 // import Company from "./company";
 import { motion } from "framer-motion";
@@ -14,7 +14,6 @@ const Clientliste = () => {
   const [errors, setErrors] = useState({});
   const [currentCompanyId, setCurrentCompanyId] = useState(0);
   const [currentClientId, setCurrentClientId] = useState(0);
-
 
   const handleIdCompany = (idCompany) => {
     setCurrentCompanyId(idCompany);
@@ -44,7 +43,7 @@ const Clientliste = () => {
         setErrors(err.response.data);
         // setLoading(false);
       });
-  }, [errors,querycompany]);
+  }, [errors, querycompany]);
 
   useEffect(() => {
     try {
@@ -64,27 +63,17 @@ const Clientliste = () => {
     } catch (error) {
       console.error(error);
     }
-  }, [errors,currentCompanyId,queryclient]);
+  }, [errors, currentCompanyId, queryclient]);
 
   return (
-    <div>
-      <motion.button
-        style={{
-          position: "fixed",
-          zIndex: 1,
-          margin: 20,
-          borderRadius: 15,
-          opacity: 0.2,
-          border: "none",
-          backgroundColor: "red",
-          color: "white",
-        }}
-        whileHover={{ scale: 1.1, opacity: 1 }}
-      >
-        <Link to="/home" className="nav-link">
-          <h2 className="text-white-50 mx-auto">home</h2>
-        </Link>
-      </motion.button>
+    <div
+      className="dd"
+      style={{
+        minHeight: "100vh",
+        // backgroundColor: "#0e0e11",
+      }}
+    >
+      <NavBar />
       <Chartsclient id={currentClientId} key={currentClientId} />
       <div
         style={{
@@ -97,9 +86,11 @@ const Clientliste = () => {
         <motion.div
           style={{
             display: "flex",
+            position: "",
             flexDirection: "column",
             width: "50%",
           }}
+          className="relative " /***************************************************************** */
           variants={{
             hideen: {
               opacity: 0,
@@ -124,6 +115,7 @@ const Clientliste = () => {
               height: "40px",
               margin: "10px",
               borderRadius: "5px",
+              border: "3px black",
               padding: 10,
               boxShadow:
                 "0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19)",
@@ -131,10 +123,10 @@ const Clientliste = () => {
             variants={{ hideen: { opacity: 0 }, show: { opacity: 1 } }}
           />
           {companys &&
-            companys.map((company) => (
+            companys.map((company, index) => (
               <motion.div
                 style={{
-                  background: "#F0F8Ff", // #bebeff
+                  background: "#325d4b", // #bebeff#08c138
                   borderRadius: "15px",
                   margin: "5px 10px",
                   display: "flex",
@@ -142,6 +134,9 @@ const Clientliste = () => {
                   padding: 10,
                   alignItems: "center",
                   height: "60px",
+                  fontSize: 25,
+                  fontFamily: "Inter, sans-serif",
+                  color: "#bbf7d0",
                 }}
                 whileHover={{
                   boxShadow:
@@ -157,13 +152,13 @@ const Clientliste = () => {
                   },
                 }}
                 // className="d-flex justify-content-center"
-                key={company.id}
+                key={index}
               >
                 {company.id} {company.name} {company.place} {company.re_com}
                 <button
                   onClick={() => handleIdCompany(company.id)}
                   style={{
-                    background: "#1d6efd", // #bebebf
+                    background: "#026320", // #026320#cffcd2
                     // position: "absolute",
                     // left: 550,
                     marginLeft: "auto",
@@ -205,7 +200,7 @@ const Clientliste = () => {
           }}
           initial="hideen"
           animate="show"
-          className="ttt2"
+          className="relative d-flex justify-content-center"
         >
           <motion.input
             type="search"
@@ -217,6 +212,7 @@ const Clientliste = () => {
               margin: "10px",
               borderRadius: "5px",
               padding: 10,
+              justifySelf: "flex-start",
               boxShadow:
                 "0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19)",
             }}
@@ -224,10 +220,10 @@ const Clientliste = () => {
           />
           {companys &&
             clients &&
-            clients.map((client) => (
+            clients.map((client, index) => (
               <motion.div
                 style={{
-                  background: "#F0F8Ff", // #bebeff
+                  background: "#325d4b", // #bebeff#08c138
                   borderRadius: "15px",
                   margin: "5px 10px",
                   display: "flex",
@@ -235,28 +231,42 @@ const Clientliste = () => {
                   padding: 10,
                   alignItems: "center",
                   height: "60px",
+                  fontFamily: "Inter, sans-serif",
+                  fontSize: 25,
+                  color: "#bbf7d0",
                 }}
                 variants={{ hideen: { opacity: 0 }, show: { opacity: 1 } }}
                 whileHover={{
                   scale: 1.02,
+                  // height: 200,
+                  alignItems: "flex-start",
                   boxShadow:
                     "0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19)",
                 }}
                 // className="d-flex justify-content-center"
-                key={client.id}
+                key={index}
               >
                 {client.id} {client.name} {client.prename} /
                 {companys &&
                   companys
                     .filter((company) => company.id === client.campany)
                     .map((company) => (
-                      <div key={company.id}>{company.name}</div>
+                      <div
+                        key={company.id}
+                        style={{
+                          color: "",
+                          fontFamily: "Inter, sans-serif",
+                          fontSize: 25,
+                        }}
+                      >
+                        {company.name}
+                      </div>
                     ))}
                 <button
                   onClick={() => handleIdClient(client.id)}
                   id="vvv"
                   style={{
-                    background: "#1d6efd", // #bebebf
+                    background: "#026320", // #bebebf
                     // position: "absolute",
                     // right: 30,
                     marginLeft: "auto",
@@ -280,10 +290,16 @@ const Clientliste = () => {
                 width: "100%",
                 height: 300,
                 alignItems: "center",
+                color: "#325d4b",
               }}
             >
               <h1
-                style={{ color: "black", fontWeight: "bold", fontSize: "3rem", opacity:0.1 }}
+                style={{
+                  color: "#325d4b",
+                  opacity: 0.1,
+                  fontWeight: "bold",
+                  fontSize: "3rem",
+                }}
               >
                 no company selected.
               </h1>
@@ -296,6 +312,7 @@ const Clientliste = () => {
                 width: "100%",
                 height: 300,
                 alignItems: "center",
+                color: "#325d4b",
               }}
             >
               <h1>
@@ -305,10 +322,10 @@ const Clientliste = () => {
                     <div
                       key={company.id}
                       style={{
-                        color: "black",
+                        color: "#325d4b",
+                        opacity: 0.1,
                         fontWeight: "bold",
                         fontSize: "3rem",
-                        opacity:0.1
                       }}
                     >
                       {company.name} desn't has client.

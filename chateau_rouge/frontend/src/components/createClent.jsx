@@ -1,6 +1,8 @@
 import { useContext, useState, useEffect } from "react";
 import AuthContex from "../context/AuthContext";
 import axios from "axios";
+import Select from "react-select";
+import { NavBar } from "./navbar";
 
 const CreateClent = () => {
   const [selectedCompany, setSelectedCompany] = useState({
@@ -45,48 +47,87 @@ const CreateClent = () => {
       .catch((err) => setErrors(err.response.data));
   }, [errors]);
   return (
-    <div>
-      <form method="post" onSubmit={handleSubmit}>
-        <input
-          type="text"
-          name="name"
-          placeholder="name"
-          onChange={(e) => {
-            setClient({ ...client, [e.target.name]: e.target.value });
+    <div className="dd" style={{ minHeight: "100vh" }}>
+      <NavBar />
+      <div
+        className="flex justify-center items-center"
+        style={{ height: "100vh" }}
+      >
+        <form
+          method="post"
+          style={{
+            width: "40%",
+            backgroundColor: "#ffffff",
+            borderRadius: 25,
+            padding: 20,
           }}
-        />
-        <input
-          type="text"
-          name="prename"
-          placeholder="prename"
-          onChange={(e) => {
-            setClient({ ...client, [e.target.name]: e.target.value });
-          }}
-        />
-        <select
-          value={selectedCompany ? selectedCompany.id : ""}
-          onChange={(event) => {
-            const companyId = parseInt(event.target.value, 10);
-            const selectedCompany = companys.find(
-              (company) => company.id === companyId
-            );
-            console.log(selectedCompany);
-            setClient({ ...client, camany: selectedCompany });
-            setSelectedCompany(selectedCompany);
-          }}
+          onSubmit={handleSubmit}
         >
-          <option value="">Select a company</option>
-          {companys.map((company) => (
-            <option key={company.id} value={company.id}>
-              {company.name}
-            </option>
-          ))}
-        </select>
-        {selectedCompany && <div>Selected company: {selectedCompany.name}</div>}
-        <button type="submit" id="brnn">
-          <h3 style={{ fontWeight: "bold" }}>Sing up</h3>
-        </button>
-      </form>
+          <div
+            style={{ display: "flex", flexDirection: "column", flexGrow: 1 }}
+          >
+            <input
+              type="text"
+              name="name"
+              placeholder="name"
+              style={{
+                margin: "10px 0 10px 0",
+                height: 50,
+              }}
+              onChange={(e) => {
+                setClient({ ...client, [e.target.name]: e.target.value });
+              }}
+            />
+            <input
+              type="text"
+              name="prename"
+              placeholder="prename"
+              style={{
+                margin: "10px 0 10px 0",
+                height: 50,
+              }}
+              onChange={(e) => {
+                setClient({ ...client, [e.target.name]: e.target.value });
+              }}
+            />
+            <Select
+              styles={{
+                control: (styles) => ({
+                  ...styles,
+                  height: 40,
+                  width: "100%",
+                }),
+                menu: (styles) => ({
+                  ...styles,
+                  width: "100%",
+                  maxHeight: "90vh",
+                }),
+              }}
+              value={selectedCompany ? selectedCompany.id : ""}
+              onChange={(selectedOption) => {
+                const selectedCompany = companys.find(
+                  (company) => company.id === selectedOption.value
+                );
+                console.log(selectedCompany);
+                setClient({ ...client, camany: selectedCompany });
+                setSelectedCompany(selectedCompany);
+              }}
+              options={companys.map((company) => ({
+                value: company.id,
+                label: `${company.name}`,
+              }))}
+              isSearchable={true}
+              placeholder="Select a company"
+            />
+            {selectedCompany && (
+              <div>Selected company: {selectedCompany.name}</div>
+            )}
+          </div>
+          <button type="submit" id="brnn" style={{ marginTop: 20 }}>
+            <h3 style={{ fontWeight: "bold" }}>Sing up</h3>
+          </button>
+        </form>
+      </div>
     </div>
   );
 };
