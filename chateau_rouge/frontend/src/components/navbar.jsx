@@ -87,11 +87,11 @@ const SlideTabs = () => {
           buying
         </Link>
       </Tab>
-      <Tab setPosition={setPosition}>
+      {/* <Tab setPosition={setPosition}>
         <Link to="/balit_add" className="nav-link">
           add balit
         </Link>
-      </Tab>
+      </Tab> */}
 
       <Cursor position={position} />
     </ul>

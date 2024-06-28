@@ -74,6 +74,16 @@ const Clientliste = () => {
       }}
     >
       <NavBar />
+      <div
+        id="searchBar"
+        // className="dd"
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          height: 65,
+          width: "100%",
+        }}
+      ></div>
       <Chartsclient id={currentClientId} key={currentClientId} />
       <div
         style={{

@@ -14,6 +14,7 @@ const Test2 = () => {
   const [mitrages, setMitrages] = useState({});
   const [errors, setErrors] = useState({});
   const [totalPricec, setTotalPrice] = useState(0);
+  const [selectedBalites, setSelectedBalites] = useState([]);
 
   useEffect(() => {
     axios
@@ -21,11 +22,6 @@ const Test2 = () => {
       .then((res) => setClient(res.data))
       .catch((err) => setErrors(err.response.data));
   }, [errors]);
-
-  const handleSearchBalites = (event) => {
-    setQueryBalites(event.target.value);
-  };
-
   useEffect(() => {
     try {
       axios
@@ -65,11 +61,7 @@ const Test2 = () => {
       // Clear the total and the checked balites
       setTotalPrice(0);
       setwBalites([]);
-      // Uncheck all checkbox elements
-      const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-      checkboxes.forEach((checkbox) => {
-        checkbox.checked = false;
-      });
+      setSelectedBalites([]);
     } catch (error) {
       // Handle any errors that occur during the request
       console.error(error);
@@ -141,23 +133,16 @@ const Test2 = () => {
               <h3 style={{ fontWeight: "bold" }}>Submit</h3>
             </button>
           </div>
-          {/* *******************************************************************************
-          ************************************************************************************
-          *************************************************************************************
-          ************************************************************************************ */}
           <div className=" absolute bottom-0 left-[40%] flex justify-start items-center w-[59%] h-16 whitespace-nowrap text-[18px] font-black uppercase sm:text-xl overflow-hidden md:text-xl lg:text-2xl px-4 border-[3px] border-black rounded-[15px] m-1">
             Total prix : <span style={{ color: "red" }}>{totalPricec}</span>DA
             <button
+              type="button"
+              className="ml-auto"
               onClick={() => {
                 setTotalPrice(0);
                 setwBalites([]);
                 setMitrages({});
-                const checkboxes = document.querySelectorAll(
-                  'input[type="checkbox"]'
-                );
-                checkboxes.forEach((checkbox) => {
-                  checkbox.checked = false;
-                });
+                setSelectedBalites([]);
               }}
             >
               Reset
@@ -185,61 +170,71 @@ const Test2 = () => {
             placeholder="Select a client"
           />
           <label>Balites:</label>
-          <input
-            type="search"
-            value={queryBalites}
-            onChange={handleSearchBalites}
-            placeholder="Search company"
+          <Select
+            value={selectedBalites}
+            onChange={(selectedOptions) => {
+              setSelectedBalites(selectedOptions);
+              const newWbalites = selectedOptions.map((option) => option.value);
+              setwBalites(newWbalites);
+              let newTotalPrice = totalPricec; // Reset to initial total price
+              newTotalPrice = 0; // Reset to 0, so we can recalculate the total price
+              selectedOptions.forEach((option) => {
+                const balite = balites.find((b) => b.id === option.value);
+                newTotalPrice +=
+                  balite.prix_vendre * (mitrages[balite.id] || 0);
+              });
+              setTotalPrice(newTotalPrice);
+            }}
+            options={balites.map((balite) => ({
+              value: balite.id,
+              label: balite.name,
+            }))}
+            isMulti={true}
           />
-          <ul>
-            {balites.map((balite) => (
-              <li key={balite.id}>
+          <div
+            style={{
+              maxWidth: "100%",
+              height: "290px",
+              display: "flex",
+              flexWrap: "wrap",
+              justifyContent: "space-between",
+            }}
+          >
+            {wbalites.map((baliteId) => (
+              <div
+                key={baliteId}
+                style={{
+                  maxWidth: "190px",
+                  height: "90px",
+                  // display: "flex",
+                  // flexWrap: "wrap",
+                  // justifyContent: "space-between",
+                }}
+              >
+                <label htmlFor={`mitrage-${baliteId}`}>
+                  Mitrage for Balite {baliteId}:
+                </label>
                 <input
-                  type="checkbox"
-                  id={`balite-${balite.id}`}
-                  value={balite.id}
+                  type="number"
+                  id={`mitrage-${baliteId}`}
+                  key={baliteId}
+                  min="0"
                   onChange={(e) => {
-                    if (e.target.checked) {
-                      setwBalites([...wbalites, balite.id]);
-                    } else {
-                      setwBalites(wbalites.filter((id) => id !== balite.id));
-                      const newTotalPrice =
-                        totalPricec -
-                        balite.prix_vendre * (mitrages[balite.id] || 0);
-                      setTotalPrice(newTotalPrice);
-                    }
+                    const newMitrage = e.target.value;
+                    setMitrages({ ...mitrages, [baliteId]: newMitrage });
+                    const balite = balites.find(
+                      (balite) => balite.id === baliteId
+                    );
+                    const newTotalPrice =
+                      totalPricec +
+                      (balite.prix_vendre * newMitrage -
+                        balite.prix_vendre * (mitrages[baliteId] || 0));
+                    setTotalPrice(newTotalPrice);
                   }}
                 />
-                <label htmlFor={`balite-${balite.id}`}>{balite.name}</label>
-              </li>
+              </div>
             ))}
-          </ul>
-
-          {wbalites.map((baliteId) => (
-            <div key={baliteId}>
-              <label htmlFor={`mitrage-${baliteId}`}>
-                Mitrage for Balite {baliteId}:
-              </label>
-              <input
-                type="number"
-                id={`mitrage-${baliteId}`}
-                key={baliteId}
-                min="0"
-                onChange={(e) => {
-                  const newMitrage = e.target.value;
-                  setMitrages({ ...mitrages, [baliteId]: newMitrage });
-                  const balite = balites.find(
-                    (balite) => balite.id === baliteId
-                  );
-                  const newTotalPrice =
-                    totalPricec +
-                    (balite.prix_vendre * newMitrage -
-                      balite.prix_vendre * (mitrages[baliteId] || 0));
-                  setTotalPrice(newTotalPrice);
-                }}
-              />
-            </div>
-          ))}
+          </div>
         </div>
       </form>
     </div>
